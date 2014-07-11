@@ -29,41 +29,32 @@ public class VocabularyTabBar extends TabActivity implements OnTabChangeListener
    
          // SummaryTab: Create  Intents to launch an Activity for the tab (to be reused)
         intent = new Intent().setClass(this, SummaryTab.class);
-        spec = tabHost.newTabSpec("First").setIndicator("Dạng đầy đủ")
+        spec = tabHost.newTabSpec("First").setIndicator("")
                       .setContent(intent);
-         
-        // Add intent to tab
         tabHost.addTab(spec);
    
         // DetailTab
         intent = new Intent().setClass(this, DetailTab.class);
-        spec = tabHost.newTabSpec("Second").setIndicator("Dạng chi tiết")
+        spec = tabHost.newTabSpec("Second").setIndicator("")
                       .setContent(intent);  
         tabHost.addTab(spec);
-   
-        // Set Tab1 as Default tab and change color   
+        
+        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.bt_detail_tab);
+        
         tabHost.getTabWidget().setCurrentTab(0);
-        tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#FFFFFF"));
-        tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#33B5E5"));
-        TextView textView0 = (TextView) tabHost.getChildAt(0).findViewById(android.R.id.title);
-        textView0.setTextColor(Color.parseColor("#0099CC"));
-   
+        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.bt_summary_tab_select);
      }
 
   @Override
   public void onTabChanged(String tabId) {
-       
-      // Call when tab change: Check current selected tab and change according images
-      for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)
-      {
-          tabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#33B5E5"));
-          TextView textView = (TextView) tabHost.getChildAt(i).findViewById(android.R.id.title);
-          textView.setTextColor(Color.parseColor("#FFFFFF"));
-      }
-	  int currTab = tabHost.getCurrentTab();
-	  tabHost.getTabWidget().getChildAt(currTab).setBackgroundColor(Color.parseColor("#FFFFFF"));
-	  TextView textView = (TextView) tabHost.getChildAt(currTab).findViewById(android.R.id.title);
-      textView.setTextColor(Color.parseColor("#0099CC"));
+	  tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.bt_summary_tab);
+//	  tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.bt_detail_tab);
+	  if (tabHost.getCurrentTab() == 0){
+		  tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.bt_summary_tab_select);
+	  } else {
+		  tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.bt_detail_tab_select);
+	  }
+	  
   }
 
 }

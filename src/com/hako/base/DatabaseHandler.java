@@ -163,14 +163,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			if (cusor.moveToFirst()) {
 				do {
 					Lesson lesson = new Lesson();
-//					questions[i].setId(cusor.getInt(cusor.getColumnIndex(ID)));
 					lesson.id = cusor.getInt(cusor.getColumnIndex(ID));
 					lesson.title = cusor.getString(cusor.getColumnIndex(TITLE));
 					lesson.discription = cusor.getString(cusor.getColumnIndex(DISCRIPTION));
 					lesson.img = cusor.getString(cusor.getColumnIndex(IMG));
 					lesson.score = cusor.getInt(cusor.getColumnIndex(SCORE));
 					lesson.is_lock = cusor.getInt(cusor.getColumnIndex(ISLOCK));
-					Debug.out(lesson.title);
 					lessons.add(lesson);
 				} while (cusor.moveToNext());
 			}

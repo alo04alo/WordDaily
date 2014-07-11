@@ -47,8 +47,13 @@ public class VocabularyTabBar extends TabActivity implements OnTabChangeListener
 
   @Override
   public void onTabChanged(String tabId) {
-	  tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.bt_summary_tab);
-//	  tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.bt_detail_tab);
+	  for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)
+		{
+	    	if(i==0)
+	    		tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.bt_summary_tab);
+	    	else if(i==1)
+	    		tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.bt_detail_tab);
+	    }
 	  if (tabHost.getCurrentTab() == 0){
 		  tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.bt_summary_tab_select);
 	  } else {

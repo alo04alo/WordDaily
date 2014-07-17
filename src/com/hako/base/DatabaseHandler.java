@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "words.sqlite";
 	private static final String TABLE_NAME = "lessons";
-	private static final String DATABASE_PATH = "/data/data/com.hako.word/database/";
+	private static final String DATABASE_PATH = "/data/data/com.hako.word/databases/";
 	private SQLiteDatabase myDB;
 	private final Context ctx;
 	public static final String TAG = "Database";
@@ -157,7 +157,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public List<Lesson> getAllLesson() {
 		List<Lesson> lessons = new ArrayList<Lesson>();
 		String sql = "select * from " + TABLE_NAME;
-		Debug.out(sql);
 		Cursor cusor = myDB.rawQuery(sql, null);
 		if (cusor != null && cusor.getCount() > 0) {
 			if (cusor.moveToFirst()) {

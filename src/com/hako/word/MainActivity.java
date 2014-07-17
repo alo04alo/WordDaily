@@ -40,7 +40,6 @@ public class MainActivity extends Activity {
 		for (int index = 0; index < lessons.size(); index++){
 			Lesson lesson = lessons.get(index);
 			icon = this.getImageFromResource(lesson.img);
-			Debug.out(lesson.id);
 			gridArray.add(new Item(icon,lesson.title));
 		}
 		

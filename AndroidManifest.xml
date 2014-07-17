@@ -38,7 +38,7 @@
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
         <activity 
-            android:name="com.hako.lesson.SubLesson"
+            android:name="com.hako.word.lesson.SubLesson"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
         

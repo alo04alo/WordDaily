@@ -5,9 +5,10 @@ import java.util.List;
 
 import com.hako.base.DatabaseHandler;
 import com.hako.base.Lesson;
-import com.hako.lesson.SubLesson;
 import com.hako.utils.Debug;
 import com.hako.word.R;
+import com.hako.word.lesson.SubLesson;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;

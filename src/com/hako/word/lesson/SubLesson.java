@@ -1,4 +1,4 @@
-package com.hako.lesson;
+package com.hako.word.lesson;
 
 import com.hako.base.DatabaseHandler;
 import com.hako.word.MainActivity;
@@ -47,7 +47,7 @@ public class SubLesson extends Activity {
 		btnViewPicture = (Button) findViewById(R.id.btn_view_picture);
 		btnTest = (Button) findViewById(R.id.btn_test);
 		
-		btnLessonName.setText("Bài " + current_lesson);
+		btnLessonName.setText("B?i " + current_lesson);
 		
 		db =  new DatabaseHandler(getApplication());
 		db.openDataBase();
@@ -73,7 +73,7 @@ public class SubLesson extends Activity {
 					((WordSupport) getApplication()).setCurrent_lesson(current_lesson + 1);
 				}
 				
-				btnLessonName.setText("Bài " + ((WordSupport) getApplication()).getCurrent_lesson());
+				btnLessonName.setText("B?i " + ((WordSupport) getApplication()).getCurrent_lesson());
 			}
 		});
 		
@@ -89,7 +89,7 @@ public class SubLesson extends Activity {
 				} else {
 					((WordSupport) getApplication()).setCurrent_lesson(current_lesson - 1);
 				}				
-				btnLessonName.setText("Bài " + ((WordSupport) getApplication()).getCurrent_lesson());
+				btnLessonName.setText("B?i " + ((WordSupport) getApplication()).getCurrent_lesson());
 			}
 		});
 		

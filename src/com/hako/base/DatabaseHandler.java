@@ -158,7 +158,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public List<Lesson> getAllLesson() {
 		List<Lesson> lessons = new ArrayList<Lesson>();
 		String sql = "select * from " + TABLE_NAME;
-		Debug.out(sql);
 		Cursor cusor = myDB.rawQuery(sql, null);
 		if (cusor != null && cusor.getCount() > 0) {
 			if (cusor.moveToFirst()) {

@@ -17,12 +17,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.webkit.WebChromeClient.CustomViewCallback;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "words.sqlite";
 	private static final String TABLE_NAME = "lessons";
-	private static final String DATABASE_PATH = "/data/data/com.hako.word/database/";
+	private static final String DATABASE_PATH = "/data/data/com.hako.word/databases/";
 	private SQLiteDatabase myDB;
 	private final Context ctx;
 	public static final String TAG = "Database";
@@ -174,6 +175,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			}
 		}
 		return lessons;
+	}
+	
+	/**
+	 * for calculate number of lessons
+	 * @return
+	 */
+	public int NumberOfLesson() {
+		String sql = "select COUNT (*) from " + TABLE_NAME;
+		Cursor cursor = myDB.rawQuery(sql, null);
+		cursor.moveToFirst();
+	    int count = cursor.getInt(0);
+		cursor.close();
+		return count;
 	}
 
 //	public int updateOneQuestion(Question question) {

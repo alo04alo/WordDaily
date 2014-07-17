@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.hako.base.DatabaseHandler;
 import com.hako.base.Lesson;
+import com.hako.lesson.SubLesson;
 import com.hako.utils.Debug;
 import com.hako.word.R;
-import com.hako.word.vocabulary.VocabularyTabBar;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -54,7 +54,8 @@ public class MainActivity extends Activity {
         {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-            	Intent i = new Intent(MainActivity.this, VocabularyTabBar.class);
+            	Intent i = new Intent(MainActivity.this, SubLesson.class);
+            	((WordSupport)getApplication()).setCurrent_lesson(position + 1);
             	startActivity(i);
             }
         });

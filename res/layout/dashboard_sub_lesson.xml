@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hako.utils.DashboardLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:orientation="vertical" >
+    
+    <!-- Vocabulary -->
+    <Button 
+        android:id="@+id/btn_vocabulary"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_vocabulary"
+        android:text="Vocabulary"
+        />
+    <!-- Match word -->
+    <Button 
+        android:id="@+id/btn_matching_word"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_matching_word"
+        android:text="Khớp từ"/>
+    <!-- Select picture -->
+    <Button 
+        android:id="@+id/btn_selecting_picture"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_selecting_picture"
+        android:text="Chọn tranh"/>
+    <!-- Listen word -->
+    <Button 
+        android:id="@+id/btn_listening_word"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_listening_word"
+        android:text="Nghe từ"/>
+    <!-- See picture -->
+    <Button 
+        android:id="@+id/btn_view_picture"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_view_picture"
+        android:text="Xem tranh"/>
+    <!-- Test -->
+    <Button 
+        android:id="@+id/btn_test"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_test"
+        android:text="Kiểm tra"/>
+    
+
+</com.hako.utils.DashboardLayout>

@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <include layout="@layout/header_home"/>
-    <include layout="@layout/content_home"/>
+    <include layout="@layout/home_header"/>
+    <include layout="@layout/home_content"/>
     
 </LinearLayout>

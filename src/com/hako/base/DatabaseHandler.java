@@ -27,7 +27,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private SQLiteDatabase myDB;
 	private final Context ctx;
 	public static final String TAG = "Database";
-	private String sql;
 	
 	private static final String ID = "id";
 	private static final String TITLE = "title";

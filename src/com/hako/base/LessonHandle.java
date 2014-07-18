@@ -2,7 +2,7 @@ package com.hako.base;
 import java.util.ArrayList;
 import java.util.List;	
 
-public class LessonHandle {
+final public class LessonHandle {
 	public List<Lesson> lessons;
 	
 	public LessonHandle(){

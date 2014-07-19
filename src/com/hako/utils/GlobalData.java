@@ -1,6 +1,9 @@
 package com.hako.utils;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
+
+import com.hako.base.Lesson;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 public class GlobalData {
+	public static List<Lesson> lessons;
 	
 	public static void CopyStream(InputStream is, OutputStream os) {
 		final int buffer_size = 1024;
@@ -39,6 +43,7 @@ public class GlobalData {
 
 	    return bitmap;
 	}
+	
 	
 	public static Bitmap drawableToBitmap (Drawable drawable) {
 	    if (drawable instanceof BitmapDrawable) {

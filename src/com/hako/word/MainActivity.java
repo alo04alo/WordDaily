@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.hako.base.DatabaseHandler;
 import com.hako.base.Lesson;
+import com.hako.utils.GlobalData;
 import com.hako.word.R;
 import com.hako.word.lesson.SubLesson;
 
@@ -36,6 +37,7 @@ public class MainActivity extends Activity {
 		
 		// Get Lessons from DB
 		List<Lesson> lessons = db.getAllLesson();
+		GlobalData.lessons = lessons;
 		Bitmap icon;
 		for (int index = 0; index < lessons.size(); index++){
 			Lesson lesson = lessons.get(index);

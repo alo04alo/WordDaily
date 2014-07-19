@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hako.utils.Debug;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -17,7 +16,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.webkit.WebChromeClient.CustomViewCallback;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
@@ -129,7 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 
 	}
-
+	
 	public Lesson getLesson(int id) {
 		Cursor cursor = null;
 		try {

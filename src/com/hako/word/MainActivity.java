@@ -63,7 +63,6 @@ public class MainActivity extends Activity {
         });
 	}
 	
-	
 	public Bitmap getImageFromResource(String name){
 		int drawableResourceId = this.getResources().getIdentifier(name, "drawable", this.getPackageName());
 		return BitmapFactory.decodeResource(this.getResources(), drawableResourceId);

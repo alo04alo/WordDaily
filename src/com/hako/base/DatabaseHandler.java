@@ -21,7 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "words.sqlite";
 	private static final String LESSON_TABLE = "lessons";
-	private static final String WORD_TABLE = "words";
+	private static final String WORD_TABLE = "kotoba";
 	private static final String DATABASE_PATH = "/data/data/com.hako.word/databases/";
 	private SQLiteDatabase myDB;
 	private final Context ctx;
@@ -36,8 +36,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	private static final String UNIT = "unit";
 	private static final String HIRAGANA = "hiragana";
-	private static final String KANJI = "kanj";
-	private static final String ROMAJI = "ramaji";
+	private static final String KANJI = "kanji";
+	private static final String ROMAJI = "romaji";
 	private static final String CHINA = "china";
 	private static final String MEAN_VI = "mean_vi";
 	private static final String KIND = "kind";
@@ -142,6 +142,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 	
+	public List<Word> getListWord(int lessonID) {
+		 return getListWord(lessonID, -1);
+	}
+	
+	public List<Word> getListWord(int lessonID, int kind){
+		/**
+		 * arg: kind = 1 if this word exist image (image file is not null) else 0 if this word doesn't image (image file is null ) 
+		 * return: List words in lesson
+		 */
+		List<Word> words = new ArrayList<Word>();
+		Cursor cursor = null;
+		String sql;
+		if (kind >= 0)
+			sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " AND kind = " + kind;
+		else
+			sql = "select * from " + WORD_TABLE + " where unit=" + lessonID;
+		cursor = myDB.rawQuery(sql, null);
+		if (cursor != null && cursor.getCount() > 0) {
+			if (cursor.moveToFirst()) {
+				do {
+					Word word = new Word();
+					word.unit = cursor.getInt(cursor.getColumnIndex(UNIT));
+					word.hiragana = cursor.getString(cursor.getColumnIndex(HIRAGANA));
+					word.kanji = cursor.getString(cursor.getColumnIndex(KANJI));
+					word.china = cursor.getString(cursor.getColumnIndex(CHINA));
+					word.mean_vi = cursor.getString(cursor.getColumnIndex(MEAN_VI));
+					word.romaji = cursor.getString(cursor.getColumnIndex(ROMAJI));
+					word.kind = cursor.getInt(cursor.getColumnIndex(KIND));
+					words.add(word);
+				} while (cursor.moveToNext());
+			}
+		}
+		return words;
+	}
+	
 	public Lesson getLesson(int id) {
 		Cursor cursor = null;
 		try {
@@ -169,19 +204,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public List<Lesson> getAllLesson() {
 		List<Lesson> lessons = new ArrayList<Lesson>();
 		String sql = "select * from " + LESSON_TABLE;
-		Cursor cusor = myDB.rawQuery(sql, null);
-		if (cusor != null && cusor.getCount() > 0) {
-			if (cusor.moveToFirst()) {
+		Cursor cursor = myDB.rawQuery(sql, null);
+		if (cursor != null && cursor.getCount() > 0) {
+			if (cursor.moveToFirst()) {
 				do {
 					Lesson lesson = new Lesson();
-					lesson.id = cusor.getInt(cusor.getColumnIndex(ID));
-					lesson.title = cusor.getString(cusor.getColumnIndex(TITLE));
-					lesson.discription = cusor.getString(cusor.getColumnIndex(DISCRIPTION));
-					lesson.img = cusor.getString(cusor.getColumnIndex(IMG));
-					lesson.score = cusor.getInt(cusor.getColumnIndex(SCORE));
-					lesson.is_lock = cusor.getInt(cusor.getColumnIndex(ISLOCK));
+					lesson.id = cursor.getInt(cursor.getColumnIndex(ID));
+					lesson.title = cursor.getString(cursor.getColumnIndex(TITLE));
+					lesson.discription = cursor.getString(cursor.getColumnIndex(DISCRIPTION));
+					lesson.img = cursor.getString(cursor.getColumnIndex(IMG));
+					lesson.score = cursor.getInt(cursor.getColumnIndex(SCORE));
+					lesson.is_lock = cursor.getInt(cursor.getColumnIndex(ISLOCK));
 					lessons.add(lesson);
-				} while (cusor.moveToNext());
+				} while (cursor.moveToNext());
 			}
 		}
 		return lessons;

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#005C7A"
+    android:orientation="vertical" >
+    
+    <TextView     
+        android:paddingTop="20dp"    
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="XIN LỖI"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"/>
+    <TextView 
+        android:id="@+id/tvRequireTest"
+        android:paddingTop="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:text="Bạn chưa vượt qua bài kiểm tra số 9"/>
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:textColor="@android:color/white"
+        android:text="Vui lòng hoàn thành bài kiểm tra để có thể tiếp tục bài học này"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal">
+        <Button 
+            android:id="@+id/btnOKRequire"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="@drawable/common_btn_require_background"
+            android:textStyle="bold"
+            android:text="KIỂM TRA"
+            />
+        <Button 
+            android:id="@+id/btnCancelRequire"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="@drawable/common_btn_require_background"
+            android:layout_marginLeft="30dp"
+            android:textStyle="bold"
+            android:text="HỦY BỎ"
+            />
+        
+    </LinearLayout>
+    
+
+</LinearLayout>

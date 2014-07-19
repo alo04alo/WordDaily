@@ -20,7 +20,8 @@ import android.util.Log;
 public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "words.sqlite";
-	private static final String TABLE_NAME = "lessons";
+	private static final String LESSON_TABLE = "lessons";
+	private static final String WORD_TABLE = "words";
 	private static final String DATABASE_PATH = "/data/data/com.hako.word/databases/";
 	private SQLiteDatabase myDB;
 	private final Context ctx;
@@ -32,12 +33,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String IMG = "img";
 	private static final String SCORE = "score";
 	private static final String ISLOCK = "is_lock";
+	
+	private static final String UNIT = "unit";
+	private static final String HIRAGANA = "hiragana";
+	private static final String KANJI = "kanj";
+	private static final String ROMAJI = "ramaji";
+	private static final String CHINA = "china";
+	private static final String MEAN_VI = "mean_vi";
+	private static final String KIND = "kind";
 
-	private static final String[] COLUMNS = { ID, TITLE, DISCRIPTION, IMG, SCORE, ISLOCK};
+	private static final String[] LESSON_COLUMNS = { ID, TITLE, DISCRIPTION, IMG, SCORE, ISLOCK};
+	private static final String[] WORD_COLUMNS = {};
 	private static final String CREATE_TABLE_LESSONS = "CREATE TABLE "
-			+ TABLE_NAME + "("+ ID + " INTEGER PRIMARY KEY," + TITLE + " TEXT,"
+			+ LESSON_TABLE + "("+ ID + " INTEGER PRIMARY KEY," + TITLE + " TEXT,"
 			+ DISCRIPTION + " TEXT," + IMG + " TEXT," + SCORE + " INTEGER,"
-			+ ISLOCK + " BOOLEAN" + ")";
+			+ ISLOCK + " INT" + ")";
+	private static final String CREATE_TABLE_WORDS = "CREATE TABLE "
+			+ WORD_TABLE + "("+ UNIT + " INTEGER," + HIRAGANA + " TEXT,"
+			+ KANJI + " TEXT," + ROMAJI + " TEXT," + CHINA + " TEXT,"
+			+ MEAN_VI + " TEXT," + UNIT + " INTEGER " + ")";
 
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,7 +65,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + LESSON_TABLE);
 		this.onCreate(db);
 	}
 
@@ -131,7 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public Lesson getLesson(int id) {
 		Cursor cursor = null;
 		try {
-			cursor = myDB.query(TABLE_NAME, COLUMNS, ID + " = " + id, null,
+			cursor = myDB.query(LESSON_TABLE, LESSON_COLUMNS, ID + " = " + id, null,
 					null, null, null);
 		} catch (Exception e) {
 			Debug.out(e.toString());
@@ -154,7 +168,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 */
 	public List<Lesson> getAllLesson() {
 		List<Lesson> lessons = new ArrayList<Lesson>();
-		String sql = "select * from " + TABLE_NAME;
+		String sql = "select * from " + LESSON_TABLE;
 		Cursor cusor = myDB.rawQuery(sql, null);
 		if (cusor != null && cusor.getCount() > 0) {
 			if (cusor.moveToFirst()) {
@@ -178,7 +192,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public int NumberOfLesson() {
-		String sql = "select COUNT (*) from " + TABLE_NAME;
+		String sql = "select COUNT (*) from " + LESSON_TABLE;
 		Cursor cursor = myDB.rawQuery(sql, null);
 		cursor.moveToFirst();
 	    int count = cursor.getInt(0);

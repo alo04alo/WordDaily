@@ -32,12 +32,13 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		// init db
-		this.initDB(this);
+		// open database and save db in GlobalData.
+		db = GlobalData.openDatabase(this); 
 		
 		// Get Lessons from DB
 		List<Lesson> lessons = db.getAllLesson();
-		GlobalData.lessons = lessons;
+		GlobalData.lessons = lessons; // Save lessons in GlobalData
+		
 		Bitmap icon;
 		for (int index = 0; index < lessons.size(); index++){
 			Lesson lesson = lessons.get(index);
@@ -62,13 +63,6 @@ public class MainActivity extends Activity {
         });
 	}
 	
-	public void initDB(Context context){
-		db = new DatabaseHandler(context);
-		if (db.checkDatabaseExist() == false) {			
-			db.checkAndCopyDatabase();
-		}
-		db.openDataBase();
-	}
 	
 	public Bitmap getImageFromResource(String name){
 		int drawableResourceId = this.getResources().getIdentifier(name, "drawable", this.getPackageName());

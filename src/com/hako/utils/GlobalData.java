@@ -3,6 +3,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import com.hako.base.DatabaseHandler;
 import com.hako.base.Lesson;
 
 import android.content.Context;
@@ -14,6 +15,16 @@ import android.graphics.drawable.Drawable;
 
 public class GlobalData {
 	public static List<Lesson> lessons;
+	public static DatabaseHandler db;
+	
+	public static DatabaseHandler openDatabase(Context context){
+		db = new DatabaseHandler(context);
+		if (db.checkDatabaseExist() == false) {			
+			db.checkAndCopyDatabase();
+		}
+		db.openDataBase();
+		return db;
+	}
 	
 	public static void CopyStream(InputStream is, OutputStream os) {
 		final int buffer_size = 1024;

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.hako.base.DatabaseHandler;
 import com.hako.base.Lesson;
-import com.hako.utils.Debug;
 import com.hako.word.R;
 import com.hako.word.lesson.SubLesson;
 
@@ -46,7 +45,7 @@ public class MainActivity extends Activity {
 		
 		// Add Lessons to gridview
 		gridView = (GridView) findViewById(R.id.gv_lessons);
-		customGridAdapter = new ListItemGridView(this, R.layout.lession_gridview, gridArray);
+		customGridAdapter = new ListItemGridView(this, R.layout.home_gridview, gridArray);
 		gridView.setAdapter(customGridAdapter);
 		
 		// Open TabBar when click gridview
@@ -55,7 +54,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
             	Intent i = new Intent(MainActivity.this, SubLesson.class);
-            	((WordSupport)getApplication()).setCurrent_lesson(position + 1);
+            	((WordSupport)getApplication()).current_lesson = position + 1;
             	startActivity(i);
             }
         });

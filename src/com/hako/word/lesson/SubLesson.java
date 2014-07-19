@@ -31,9 +31,9 @@ public class SubLesson extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.sub_lesson);
+		setContentView(R.layout.sub_lesson_view);
 		// get currentID lesson
-		current_lesson = ((WordSupport)getApplication()).getCurrent_lesson();
+		current_lesson = ((WordSupport)getApplication()).current_lesson;
 		
 		btnHome = (Button) findViewById(R.id.btn_home);
 		btnLessonName = (Button) findViewById(R.id.btn_down);
@@ -47,7 +47,7 @@ public class SubLesson extends Activity {
 		btnViewPicture = (Button) findViewById(R.id.btn_view_picture);
 		btnTest = (Button) findViewById(R.id.btn_test);
 		
-		btnLessonName.setText("B?i " + current_lesson);
+		btnLessonName.setText("Bài " + current_lesson);
 		
 		db =  new DatabaseHandler(getApplication());
 		db.openDataBase();
@@ -65,15 +65,16 @@ public class SubLesson extends Activity {
 			@Override
 			public void onClick(View v) {
 				// get currentID lesson
-				current_lesson = ((WordSupport)getApplication()).getCurrent_lesson();
+				current_lesson = ((WordSupport)getApplication()).current_lesson;
 				// set new currentID lesson
 				if (current_lesson == db.NumberOfLesson()) {
-					((WordSupport) getApplication()).setCurrent_lesson(1);
+					((WordSupport) getApplication()).current_lesson = 1;
 				} else {
-					((WordSupport) getApplication()).setCurrent_lesson(current_lesson + 1);
+					((WordSupport) getApplication()).current_lesson = current_lesson + 1;
 				}
 				
-				btnLessonName.setText("B?i " + ((WordSupport) getApplication()).getCurrent_lesson());
+//				String title = 
+				btnLessonName.setText("Bài " + ((WordSupport) getApplication()).current_lesson);
 			}
 		});
 		
@@ -82,14 +83,14 @@ public class SubLesson extends Activity {
 			@Override
 			public void onClick(View v) {				
 				// get currentID lesson
-				current_lesson = ((WordSupport)getApplication()).getCurrent_lesson();
+				current_lesson = ((WordSupport)getApplication()).current_lesson;
 				// set new currentID lesson
 				if (current_lesson == 1) {
-					((WordSupport) getApplication()).setCurrent_lesson(db.NumberOfLesson());
+					((WordSupport) getApplication()).current_lesson = db.NumberOfLesson();
 				} else {
-					((WordSupport) getApplication()).setCurrent_lesson(current_lesson - 1);
+					((WordSupport) getApplication()).current_lesson = current_lesson - 1;
 				}				
-				btnLessonName.setText("B?i " + ((WordSupport) getApplication()).getCurrent_lesson());
+				btnLessonName.setText("Bài " + ((WordSupport) getApplication()).current_lesson);
 			}
 		});
 		

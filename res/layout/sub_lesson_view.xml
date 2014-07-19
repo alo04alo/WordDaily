@@ -9,9 +9,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         >
-    	<include layout="@layout/header_sub_lesson"/>"
+    	<include layout="@layout/sub_lesson_header"/>"
     </LinearLayout>
     <!-- Include Fragmented dashboard -->
-    <include layout="@layout/dashboard_sub_lesson"/>
+    <include layout="@layout/sub_lesson_dashbroad"/>
 
 </LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ActionBarCompat" >
+    
+    <Button 
+        android:id="@+id/btn_home"
+        style="@style/DashboardButton"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginLeft="10dp"
+        android:drawableTop="@drawable/bt_home"/>
+    
+    <Button 
+        android:id="@+id/btn_down"   
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"  
+        android:layout_marginRight="40dp"   
+        android:drawableRight="@drawable/down_arrow_press"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        style="@style/DashboardButton"
+        android:text="Từ vựng"/>
+</LinearLayout>

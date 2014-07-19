@@ -4,11 +4,9 @@ import com.hako.word.R;
 
 import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TextView;
 
 public class VocabularyTabBar extends TabActivity implements OnTabChangeListener{
 	
@@ -16,7 +14,7 @@ public class VocabularyTabBar extends TabActivity implements OnTabChangeListener
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vocabulary_tab);
+        setContentView(R.layout.vocabulary_view);
          
         // Get TabHost Refference
         tabHost = getTabHost();

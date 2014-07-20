@@ -6,7 +6,6 @@ import com.hako.base.Word;
 import com.hako.base.WordHandle;
 import com.hako.utils.GlobalData;
 import com.hako.word.R;
-import com.hako.word.WordSupport;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -35,7 +34,7 @@ public class DetailTab extends Activity {
       public void onCreate(Bundle savedInstanceState) {
           super.onCreate(savedInstanceState);
           setContentView(R.layout.vocabulary_detail_tab);
-          curr_lesson = ((WordSupport)getApplication()).current_lesson;
+          curr_lesson = GlobalData.current_lesson;
           words = WordHandle.getListWord(curr_lesson, 1);
           tv_hiragana = (TextView)this.findViewById(R.id.vocabulary_tv_hiragana);
           tv_mean_vi = (TextView)this.findViewById(R.id.vocabulary_tv_mean_vi);
@@ -93,6 +92,7 @@ public class DetailTab extends Activity {
 	                  tv_hiragana.setText(word.hiragana);
 	                  tv_mean_vi.setText(word.mean_vi);
 	                  Bitmap img_word = null;
+	                  
 	                  try{
 	                	  img_word = GlobalData.getImageFromRaw(this, word.romaji);
 	                  }

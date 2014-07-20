@@ -15,7 +15,8 @@ import android.graphics.drawable.Drawable;
 
 public class GlobalData {
 	public static List<Lesson> lessons;
-	public static DatabaseHandler db;
+	public static DatabaseHandler db;	
+	public static String[] allFunctions = {"Từ vựng", "Khớp từ", "Chọn tranh", "Nghe từ", "Xem tranh", "Kiểm tra"};
 	
 	public static DatabaseHandler openDatabase(Context context){
 		db = new DatabaseHandler(context);

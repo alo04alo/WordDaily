@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		// open database and save db in GlobalData.
-		db = GlobalData.openDatabase(this); 
+		db = GlobalData.openDatabase(this); 		
 		
 		// Get Lessons from DB
 		List<Lesson> lessons = db.getAllLesson();

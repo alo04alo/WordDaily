@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/ActionBarCompat" >
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/actionbar_background">
+	<LinearLayout 
+  	 	android:layout_width="wrap_content"
+  	 	android:layout_height="50dp" >
     
-    <Button 
-        android:id="@+id/btn_home"
-        style="@style/DashboardButton"
-        android:layout_marginBottom="-10dp"
-        android:layout_marginLeft="10dp"
-        android:drawableTop="@drawable/bt_home"/>
-    <Button 
-        android:id="@+id/btn_previous"
-        style="@style/DashboardButton"
-        android:layout_marginLeft="55dp"
-        android:layout_marginBottom="-10dp"
-        android:drawableTop="@drawable/btn_previous"/>
-    <Button 
-        android:id="@+id/btn_down"        
-        style="@style/DashboardButton"
-        android:layout_marginLeft="5dp"        
-        android:drawableRight="@drawable/down_arrow_press"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:gravity="left|center_vertical"
-        android:text="Bài 1"/>
-    <Button 
-        android:id="@+id/btn_next"
-        style="@style/DashboardButton"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="-10dp"
-        android:drawableTop="@drawable/next_arrow_press"/>
-            
-
-</LinearLayout>
+	    <Button 
+	        android:id="@+id/btn_home"
+	        style="@style/DashboardButton"
+	        android:layout_marginBottom="-10dp"
+	        android:layout_marginLeft="10dp"
+	        android:drawableTop="@drawable/bt_home"/>
+   </LinearLayout>
+   <LinearLayout 
+       android:layout_width="fill_parent"
+       android:layout_height="50dp"
+       android:gravity="center_horizontal">
+	   <Button 
+	       android:id="@+id/btn_previous"
+	       style="@style/DashboardButton"
+	       android:layout_marginBottom="-10dp"
+	       android:drawableTop="@drawable/btn_previous"/>
+	   <Button 
+	       android:id="@+id/btn_down"        
+	       style="@style/DashboardButton"
+	       android:layout_marginLeft="5dp"        
+	       android:drawableRight="@drawable/down_arrow_press"
+	       android:textColor="@android:color/white"
+	       android:textStyle="bold"
+	       android:gravity="left|center_vertical"
+	       android:text="Bài 1"/>
+	   <Button 
+	       android:id="@+id/btn_next"
+	       style="@style/DashboardButton"
+	       android:layout_marginLeft="5dp"
+	       android:layout_marginBottom="-10dp"
+	       android:drawableTop="@drawable/next_arrow_press"/>            
+	</LinearLayout>
+</RelativeLayout>

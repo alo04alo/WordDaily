@@ -142,23 +142,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 	
-	public List<Word> getListWord(int lessonID) {
-		 return getListWord(lessonID, -1);
+	public List<Word> getListWord(int lessonID, int amount) {
+		 return getListWord(lessonID, -1, amount);
 	}
 	
-	public List<Word> getListWord(int lessonID, int kind){
+	public List<Word> getListWord(int lessonID, int kind, int amount){
 		/**
 		 * arg: kind = 1 if this word exist image (image file is not null) else 0 if this word doesn't image (image file is null ) 
 		 * return: List words in lesson
 		 */
 		List<Word> words = new ArrayList<Word>();
 		Cursor cursor = null;
-		String sql;
-		if (kind >= 0)
-			sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " AND kind = " + kind;
-		else
+		String sql = "";
+		
+		if (amount > 0) {
+			if (kind >= 0)
+				sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " AND kind = " + kind + " order by random() limit " + amount;
+			else
+				sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " order by random() limit " + amount;
+		} else {
 			sql = "select * from " + WORD_TABLE + " where unit=" + lessonID;
+		}
+		
 		cursor = myDB.rawQuery(sql, null);
+		
 		if (cursor != null && cursor.getCount() > 0) {
 			if (cursor.moveToFirst()) {
 				do {

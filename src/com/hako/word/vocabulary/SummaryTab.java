@@ -5,7 +5,7 @@ import java.util.List;
 import com.hako.base.Word;
 import com.hako.base.WordHandle;
 import com.hako.utils.Debug;
-import com.hako.word.WordSupport;
+import com.hako.utils.GlobalData;
 
 import android.R.bool;
 import android.os.Bundle;
@@ -18,10 +18,6 @@ import android.app.ListActivity;
  
  
 public class SummaryTab extends ListActivity {
-//      private String[] hiragana = {"あさ","かばん","にほんご","へや","きに","あさ","かばん","にほんご","へや","きに","あさ","かばん","にほんご","へや","きに","あさ","かばん","にほんご","へや","きに"};
-//      private String[] kanji = {"朝","鞄","日本語","へや","きに", "朝","鞄","日本語","へや","きに", "朝","鞄","日本語","へや","きに", "朝","鞄","日本語","へや","きに"};
-//      private String[] mean = {"buổi sáng","cái cặp","tiếng nhật","căn hộ","đất nước", "buổi sáng","cái cặp","tiếng nhật","căn hộ","đất nước", "buổi sáng","cái cặp","tiếng nhật","căn hộ","đất nước", "buổi sáng","cái cặp","tiếng nhật","căn hộ","đất nước"};
-      
 	  private List<Word> words; 
 	  private String[] hiragana;
 	  private String[] kanji;
@@ -31,7 +27,7 @@ public class SummaryTab extends ListActivity {
       public void onCreate(Bundle savedInstanceState) {
           super.onCreate(savedInstanceState);
           
-          int current_lesson = ((WordSupport) getApplication()).current_lesson;
+          int current_lesson = GlobalData.current_lesson;
           words = WordHandle.getListWord(current_lesson);
           hiragana = new String[words.size()];
           kanji = new String[words.size()];

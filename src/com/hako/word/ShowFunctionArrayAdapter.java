@@ -1,4 +1,4 @@
-package com.hako.utils;
+package com.hako.word;
 
 import com.hako.word.R;
 

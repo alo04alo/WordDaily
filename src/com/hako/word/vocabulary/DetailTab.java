@@ -1,5 +1,6 @@
 package com.hako.word.vocabulary;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,19 +10,24 @@ import com.hako.base.WordHandle;
 import com.hako.utils.Debug;
 import com.hako.utils.GlobalData;
 import com.hako.word.R;
+import com.programmingmobile.pageviewer.MyFragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
  
-public class DetailTab extends Activity {
- 
+public class DetailTab extends FragmentActivity {
+	
+	  
 	  private static int THRESHOLD = 6;
       private static float mLastTouchX;
       private static float mLastTouchY; 
@@ -115,81 +121,110 @@ public class DetailTab extends Activity {
           });
       }
       
-      @Override
-      public boolean onTouchEvent(MotionEvent ev) {
-    	  if (isAuto == 0){
-    		  final int action = ev.getAction();
-              switch (action) {
-    	          case MotionEvent.ACTION_DOWN: {
-    	              final float x = ev.getX();
-    	              final float y = ev.getY();
-    	              // Remember where we started
-    	              mLastTouchX = x;
-    	              mLastTouchY = y;
-    	              break;
-    	          }
-    	          
-    	          case MotionEvent.ACTION_UP:{
-    	        	  break;
-    	          }
-    	          
-    	          case MotionEvent.ACTION_MOVE: {
-    	              final float x = ev.getX();
-    	              final float y = ev.getY();
-    	              
-    	              // Calculate the distance moved
-    	              final float dx = x - mLastTouchX;
-    	              final float dy = y - mLastTouchY;
-    	              
-    	              if (dx > THRESHOLD){
-    	            	  curr_word = curr_word + 1;
-    	            	  if (curr_word >= words.size())
-    	            		  curr_word = 0;
-    	            	  Word word = words.get(curr_word);
-    	                  tv_hiragana.setText(word.hiragana);
-    	                  tv_mean_vi.setText(word.mean_vi);
-    	                  Bitmap img_word = null;
-    	                  try{
-    	                	  img_word = GlobalData.getImageFromRaw(this, word.romaji);
-    	                  }
-    	                  catch (Exception e){
-    	                	  img_word = GlobalData.getImageFromDrawable(this, "kasa");
-    	                  }
-    	                  
-    	                  if (img_word == null){
-    	                	  img_word = GlobalData.getImageFromDrawable(this, "kasa");
-    	                  }
-    	                  iv_word.setImageBitmap(img_word);
-    	              }
-    	              
-    	              if (dx < -THRESHOLD){
-    	            	  curr_word--;
-    	            	  if (curr_word < 0)
-    	            		  curr_word = words.size() - 1;
-    	            	  Word word = words.get(curr_word);
-    	                  tv_hiragana.setText(word.hiragana);
-    	                  tv_mean_vi.setText(word.mean_vi);
-    	                  Bitmap img_word = null;
-    	                  try{
-    	                	  img_word = GlobalData.getImageFromRaw(this, word.romaji);
-    	                  }
-    	                  catch (Exception e){
-    	                	  img_word = GlobalData.getImageFromDrawable(this, "kasa");
-    	                  }
-    	                  
-    	                  if (img_word == null){
-    	                	  img_word = GlobalData.getImageFromDrawable(this, "kasa");
-    	                  }
-    	                  iv_word.setImageBitmap(img_word);
-    	              }
-    	              // Remember this touch position for the next move event
-    	              mLastTouchX = x;
-    	              mLastTouchY = y;
-    	              break;
-    	          }
-              }
-    	  }
-          
-          return true;
+      private List<Fragment> getFragments(){
+      	List<Fragment> fList = new ArrayList<Fragment>();
+      	curr_lesson = GlobalData.current_lesson;
+        words = WordHandle.getListWord(curr_lesson, 1);
+        for (int index = 0; index < words.size(); index++){
+        	Word word = words.get(index);
+        	fList.add(DetailFragment.newInstance(word.hiragana, word.mean_vi, word.romaji));
+        }
+      	return fList;
       }
+
+      private class MyPageAdapter extends FragmentPagerAdapter {
+      	private List<Fragment> fragments;
+
+          public MyPageAdapter(FragmentManager fm, List<Fragment> fragments) {
+              super(fm);
+              this.fragments = fragments;
+          }
+          @Override
+          public Fragment getItem(int position) {
+              return this.fragments.get(position);
+          }
+       
+          @Override
+          public int getCount() {
+              return this.fragments.size();
+          }
+      }
+      
+//      @Override
+//      public boolean onTouchEvent(MotionEvent ev) {
+//    	  if (isAuto == 0){
+//    		  final int action = ev.getAction();
+//              switch (action) {
+//    	          case MotionEvent.ACTION_DOWN: {
+//    	              final float x = ev.getX();
+//    	              final float y = ev.getY();
+//    	              // Remember where we started
+//    	              mLastTouchX = x;
+//    	              mLastTouchY = y;
+//    	              break;
+//    	          }
+//    	          
+//    	          case MotionEvent.ACTION_UP:{
+//    	        	  break;
+//    	          }
+//    	          
+//    	          case MotionEvent.ACTION_MOVE: {
+//    	              final float x = ev.getX();
+//    	              final float y = ev.getY();
+//    	              
+//    	              // Calculate the distance moved
+//    	              final float dx = x - mLastTouchX;
+//    	              final float dy = y - mLastTouchY;
+//    	              
+//    	              if (dx > THRESHOLD){
+//    	            	  curr_word = curr_word + 1;
+//    	            	  if (curr_word >= words.size())
+//    	            		  curr_word = 0;
+//    	            	  Word word = words.get(curr_word);
+//    	                  tv_hiragana.setText(word.hiragana);
+//    	                  tv_mean_vi.setText(word.mean_vi);
+//    	                  Bitmap img_word = null;
+//    	                  try{
+//    	                	  img_word = GlobalData.getImageFromRaw(this, word.romaji);
+//    	                  }
+//    	                  catch (Exception e){
+//    	                	  img_word = GlobalData.getImageFromDrawable(this, "kasa");
+//    	                  }
+//    	                  
+//    	                  if (img_word == null){
+//    	                	  img_word = GlobalData.getImageFromDrawable(this, "kasa");
+//    	                  }
+//    	                  iv_word.setImageBitmap(img_word);
+//    	              }
+//    	              
+//    	              if (dx < -THRESHOLD){
+//    	            	  curr_word--;
+//    	            	  if (curr_word < 0)
+//    	            		  curr_word = words.size() - 1;
+//    	            	  Word word = words.get(curr_word);
+//    	                  tv_hiragana.setText(word.hiragana);
+//    	                  tv_mean_vi.setText(word.mean_vi);
+//    	                  Bitmap img_word = null;
+//    	                  try{
+//    	                	  img_word = GlobalData.getImageFromRaw(this, word.romaji);
+//    	                  }
+//    	                  catch (Exception e){
+//    	                	  img_word = GlobalData.getImageFromDrawable(this, "kasa");
+//    	                  }
+//    	                  
+//    	                  if (img_word == null){
+//    	                	  img_word = GlobalData.getImageFromDrawable(this, "kasa");
+//    	                  }
+//    	                  iv_word.setImageBitmap(img_word);
+//    	              }
+//    	              // Remember this touch position for the next move event
+//    	              mLastTouchX = x;
+//    	              mLastTouchY = y;
+//    	              break;
+//    	          }
+//              }
+//    	  }
+//          
+//          return true;
+//      }
 }

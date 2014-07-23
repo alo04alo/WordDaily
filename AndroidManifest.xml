@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <application
         android:name="WordSupport"
@@ -43,6 +43,10 @@
         </activity>
         <activity 
             android:name="com.hako.word.lesson.SubLesson"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
+            android:name="com.hako.word.viewPicture.ViewPictureActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
         

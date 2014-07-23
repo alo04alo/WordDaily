@@ -7,11 +7,11 @@ import com.hako.utils.GlobalData;
 public class WordHandle {
 	public static DatabaseHandler db = GlobalData.db;
 	
-	public static List<Word> getListWord(int lessonId, int type){
-		return db.getListWord(lessonId, type);
+	public static List<Word> getListWord(int lessonId, int type, int amount){
+		return db.getListWord(lessonId, type, amount);
 	}
 	
-	public static List<Word> getListWord(int lessonId){
-		return db.getListWord(lessonId);
+	public static List<Word> getListWord(int lessonId, int amount){
+		return db.getListWord(lessonId, amount);
 	}
 }

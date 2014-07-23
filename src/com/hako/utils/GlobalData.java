@@ -17,6 +17,7 @@ public class GlobalData {
 	public static List<Lesson> lessons;
 	public static DatabaseHandler db;	
 	public static String[] allFunctions = {"Từ vựng", "Khớp từ", "Chọn tranh", "Nghe từ", "Xem tranh", "Kiểm tra"};
+	public static int current_lesson;
 	
 	public static DatabaseHandler openDatabase(Context context){
 		db = new DatabaseHandler(context);
@@ -43,6 +44,21 @@ public class GlobalData {
 	
 	public static Bitmap getImageFromDrawable(Context context, String name) {
 		Drawable drawable = context.getResources().getDrawable(context.getResources().getIdentifier(name, "drawable", context.getPackageName()));
+		
+		if (drawable instanceof BitmapDrawable) {
+	        return ((BitmapDrawable)drawable).getBitmap();
+	    }
+
+	    Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Config.ARGB_8888);
+	    Canvas canvas = new Canvas(bitmap); 
+	    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+	    drawable.draw(canvas);
+
+	    return bitmap;
+	}
+	
+	public static Bitmap getImageFromRaw(Context context, String name) {
+		Drawable drawable = context.getResources().getDrawable(context.getResources().getIdentifier(name, "raw", context.getPackageName()));
 		
 		if (drawable instanceof BitmapDrawable) {
 	        return ((BitmapDrawable)drawable).getBitmap();

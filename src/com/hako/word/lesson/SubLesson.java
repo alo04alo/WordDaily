@@ -7,7 +7,6 @@ import com.hako.base.Lesson;
 import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
-import com.hako.word.WordSupport;
 import com.hako.word.viewPicture.ViewPictureActivity;
 import com.hako.word.vocabulary.VocabularyTabBar;
 
@@ -54,7 +53,7 @@ public class SubLesson extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sub_lesson_view);
 		// get currentID lesson
-		current_lesson = ((WordSupport)getApplication()).current_lesson;
+		current_lesson = GlobalData.current_lesson;
 		lessons = GlobalData.lessons;
 		
 		btnHome = (Button) findViewById(R.id.btn_home);
@@ -87,15 +86,15 @@ public class SubLesson extends Activity {
 			@Override
 			public void onClick(View v) {
 				// get currentID lesson
-				current_lesson = ((WordSupport)getApplication()).current_lesson;
+				current_lesson = GlobalData.current_lesson;
 				// set new currentID lesson
 				if (current_lesson == db.NumberOfLesson()) {
-					((WordSupport) getApplication()).current_lesson = 1;
+					GlobalData.current_lesson = 1;
 				} else {
-					((WordSupport) getApplication()).current_lesson = current_lesson + 1;
+					GlobalData.current_lesson = current_lesson + 1;
 				}
 				
-				btnLessonName.setText("Bài " + ((WordSupport) getApplication()).current_lesson);
+				btnLessonName.setText("Bài " + GlobalData.current_lesson);
 			}
 		});
 		
@@ -104,14 +103,14 @@ public class SubLesson extends Activity {
 			@Override
 			public void onClick(View v) {				
 				// get currentID lesson
-				current_lesson = ((WordSupport)getApplication()).current_lesson;
+				current_lesson = GlobalData.current_lesson;
 				// set new currentID lesson
 				if (current_lesson == 1) {
-					((WordSupport) getApplication()).current_lesson = db.NumberOfLesson();
+					GlobalData.current_lesson = db.NumberOfLesson();
 				} else {
-					((WordSupport) getApplication()).current_lesson = current_lesson - 1;
+					GlobalData.current_lesson = current_lesson - 1;
 				}				
-				btnLessonName.setText("Bài " + ((WordSupport) getApplication()).current_lesson);
+				btnLessonName.setText("Bài " + GlobalData.current_lesson);
 			}
 		});
 		
@@ -173,7 +172,7 @@ public class SubLesson extends Activity {
 		final Dialog alertDialog = builder.create();
 		
 		tvRequireTest = (TextView) viewDialog.findViewById(R.id.tvRequireTest);		
-		tvRequireTest.setText("Bạn chưa vượt qua bài kiểm tra số " + (((WordSupport)getApplication()).current_lesson - 1));
+		tvRequireTest.setText("Bạn chưa vượt qua bài kiểm tra số " + (GlobalData.current_lesson - 1));
 		
 
 		btnOKRequire = (Button) viewDialog.findViewById(R.id.btnOKRequire);
@@ -229,8 +228,8 @@ public class SubLesson extends Activity {
         lv.setClickable(true);
         lv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((WordSupport)getApplication()).current_lesson = position + 1;
-                btnLessonName.setText("Bài " + ((WordSupport)getApplication()).current_lesson);     
+                GlobalData.current_lesson = position + 1;
+                btnLessonName.setText("Bài " + GlobalData.current_lesson);     
                 // hide dialog
                 alertDialog.cancel();
             }
@@ -240,8 +239,8 @@ public class SubLesson extends Activity {
 	}
 
 	protected Boolean checkEnableLesson() {
-		Lesson lesson = lessons.get(((WordSupport)getApplication()).current_lesson - 1);
-		if (((WordSupport)getApplication()).current_lesson == 1) {
+		Lesson lesson = lessons.get(GlobalData.current_lesson - 1);
+		if (GlobalData.current_lesson == 1) {
 			return true;
 		} 
 		else if (lesson.is_lock == 1) {

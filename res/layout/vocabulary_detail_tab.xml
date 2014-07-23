@@ -12,7 +12,7 @@
         android:drawableTop="@drawable/bt_prev" /> -->
     
     <ImageView 
-        android:id="@+id/word_img"
+        android:id="@+id/vocabulary_iv_word"
         android:layout_width="198dp"
     	android:layout_height="256dp"
     	android:layout_alignParentTop="true"
@@ -36,16 +36,16 @@
        android:layout_alignParentTop="true" >
 
        <Button
-           android:id="@+id/bt_auto"
+           android:id="@+id/vocabulary_bt_auto"
            style="@style/DashboardButton"
            android:layout_alignParentBottom="true"
            android:layout_alignParentLeft="true"
            android:drawableTop="@drawable/bt_auto" />
        <TextView 
-           android:id="@+id/tv_hiragana" 
+           android:id="@+id/vocabulary_tv_hiragana" 
            android:layout_height="wrap_content"
            android:layout_width="fill_parent"
-           android:layout_alignLeft="@id/bt_auto"
+           android:layout_alignLeft="@id/vocabulary_bt_auto"
            android:layout_marginBottom="60dp"
            android:layout_alignParentBottom="true"
            android:gravity="center"
@@ -53,11 +53,11 @@
            android:text="kasa"
            android:textColor="#0099CC"/>
        <TextView 
-           android:id="@+id/tv_mean_vi" 
+           android:id="@+id/vocabulary_tv_mean_vi" 
            android:layout_height="wrap_content"
            android:layout_width="fill_parent"
-           android:layout_alignLeft="@id/bt_auto"
-           android:layout_alignBottom="@id/tv_hiragana"
+           android:layout_alignLeft="@id/vocabulary_bt_auto"
+           android:layout_alignBottom="@id/vocabulary_tv_hiragana"
            android:layout_alignParentBottom="true"
            android:layout_marginBottom="25dp"
            android:gravity="center"
@@ -65,7 +65,7 @@
            android:text="Cái ô"
            android:textColor="#669900"/>
        <Button
-           android:id="@+id/bt_audio"
+           android:id="@+id/vocabulary_bt_audio"
            style="@style/DashboardButton"
            android:layout_alignParentBottom="true"
            android:layout_alignParentRight="true"

@@ -30,7 +30,7 @@ public class SubLessonArrayAdapter extends ArrayAdapter<String> {
 		TextView tvTitle = (TextView) rowView.findViewById(R.id.tvTitleLesson);
 		TextView tvDescript = (TextView) rowView.findViewById(R.id.tvDescriptLesson);
 		
-		tvTitle.setText(titleLesson[position]);
+		tvTitle.setText(titleLesson[position] + ": ");
 		tvDescript.setText(descriptLesson[position]);
 		
 		return rowView;

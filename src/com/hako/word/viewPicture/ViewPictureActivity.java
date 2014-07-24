@@ -1,8 +1,5 @@
 package com.hako.word.viewPicture;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Random;
 
@@ -11,14 +8,11 @@ import com.hako.base.WordHandle;
 import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
-import com.hako.word.WordSupport;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;

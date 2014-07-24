@@ -1,11 +1,9 @@
 package com.hako.word.vocabulary;
 
-import com.hako.base.Lesson;
 import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
 import com.hako.word.ShowFunctionArrayAdapter;
-import com.hako.word.lesson.SubLessonArrayAdapter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

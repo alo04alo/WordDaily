@@ -4,14 +4,10 @@ import java.util.List;
 
 import com.hako.base.Word;
 import com.hako.base.WordHandle;
-import com.hako.utils.Debug;
 import com.hako.utils.GlobalData;
 
-import android.R.bool;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.app.ListActivity;

@@ -43,23 +43,33 @@ public class GlobalData {
 	}
 	
 	public static Bitmap getImageFromDrawable(Context context, String name) {
-		Drawable drawable = context.getResources().getDrawable(context.getResources().getIdentifier(name, "drawable", context.getPackageName()));
+		Drawable drawable = null;
+		try {
+			drawable = context.getResources().getDrawable(context.getResources().getIdentifier(name, "drawable", context.getPackageName()));
+		} catch (Exception e){
+			drawable = context.getResources().getDrawable(context.getResources().getIdentifier("anata", "drawable", context.getPackageName()));
+		}
 		
 		if (drawable instanceof BitmapDrawable) {
 	        return ((BitmapDrawable)drawable).getBitmap();
 	    }
-
+		
 	    Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Config.ARGB_8888);
 	    Canvas canvas = new Canvas(bitmap); 
 	    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
 	    drawable.draw(canvas);
-
+	    
 	    return bitmap;
 	}
 	
 	public static Bitmap getImageFromRaw(Context context, String name) {
-		Drawable drawable = context.getResources().getDrawable(context.getResources().getIdentifier(name, "raw", context.getPackageName()));
-		
+//		Drawable drawable = context.getResources().getDrawable(context.getResources().getIdentifier(name, "raw", context.getPackageName()));
+		Drawable drawable = null;
+		try {
+			drawable = context.getResources().getDrawable(context.getResources().getIdentifier(name, "raw", context.getPackageName()));
+		} catch (Exception e){
+			drawable = context.getResources().getDrawable(context.getResources().getIdentifier("anata", "raw", context.getPackageName()));
+		}
 		if (drawable instanceof BitmapDrawable) {
 	        return ((BitmapDrawable)drawable).getBitmap();
 	    }

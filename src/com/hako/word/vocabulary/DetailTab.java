@@ -10,7 +10,6 @@ import com.hako.base.WordHandle;
 import com.hako.utils.Debug;
 import com.hako.utils.GlobalData;
 import com.hako.word.R;
-import com.programmingmobile.pageviewer.MyFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

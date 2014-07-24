@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.hako.base.Word;
 import com.hako.base.WordHandle;
+import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
 import com.hako.word.WordSupport;
@@ -75,7 +76,7 @@ public class ViewPictureActivity extends Activity{
 		amountWords = 20;
 		
 		// get number of words from DB
-		words = WordHandle.getListWord(((WordSupport) getApplication()).current_lesson, type, amountWords);
+		words = WordHandle.getListWord(GlobalData.current_lesson, type, amountWords);
 		
 		
 		loadNewQuestion();
@@ -148,19 +149,10 @@ public class ViewPictureActivity extends Activity{
 			Toast.makeText(getApplicationContext(), "Full rui nho", Toast.LENGTH_LONG).show();
 			return;
 		}
-		
-		AssetManager assetManager = this.getAssets();
-		InputStream is;
-		
-		try {
 //			Toast.makeText(getApplicationContext(), words.get(count).romaji, Toast.LENGTH_SHORT).show();
-			is = assetManager.open(words.get(count).romaji + ".png");
-			Bitmap bitmap = BitmapFactory.decodeStream(is);
-			imgWord.setImageBitmap(bitmap);
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		Bitmap bitmap = GlobalData.getImageFromRaw(this, words.get(count).romaji);
+		imgWord.setImageBitmap(bitmap);
 		
 		// set text for answer buttons
 		setTextForAnswers();
@@ -211,7 +203,6 @@ public class ViewPictureActivity extends Activity{
 				index++;
 			}
 		}
-		
 	}
 	
 	private int[] getRandomThreeNumber(int min, int max, int ignore) {

@@ -142,11 +142,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 	
-	public List<Word> getListWord(int lessonID, int amount) {
-		 return getListWord(lessonID, -1, amount);
+	public List<Word> getListWord(int lessonID) {
+		 return getListWord(lessonID, -1);
 	}
 	
-	public List<Word> getListWord(int lessonID, int kind, int amount){
+	public List<Word> getRandomListWord(int lessonID, int kind, int limit){
+		List<Word> words = new ArrayList<Word>();
+		Cursor cursor = null;
+		String sql = "";
+		
+		if (kind >= 0)
+			sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " AND kind = " + kind + " order by random() limit " + limit;
+		else 
+			sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " order by random() limit " + limit;
+		
+		cursor = myDB.rawQuery(sql, null);
+		
+		if (cursor != null && cursor.getCount() > 0) {
+			if (cursor.moveToFirst()) {
+				do {
+					Word word = new Word();
+					word.unit = cursor.getInt(cursor.getColumnIndex(UNIT));
+					word.hiragana = cursor.getString(cursor.getColumnIndex(HIRAGANA));
+					word.kanji = cursor.getString(cursor.getColumnIndex(KANJI));
+					word.china = cursor.getString(cursor.getColumnIndex(CHINA));
+					word.mean_vi = cursor.getString(cursor.getColumnIndex(MEAN_VI));
+					word.romaji = cursor.getString(cursor.getColumnIndex(ROMAJI));
+					word.kind = cursor.getInt(cursor.getColumnIndex(KIND));
+					words.add(word);
+				} while (cursor.moveToNext());
+			}
+		}
+		return words;
+	}
+	
+	public List<Word> getListWord(int lessonID, int kind){
 		/**
 		 * arg: kind = 1 if this word exist image (image file is not null) else 0 if this word doesn't image (image file is null ) 
 		 * return: List words in lesson
@@ -155,14 +185,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Cursor cursor = null;
 		String sql = "";
 		
-		if (amount > 0) {
-			if (kind >= 0)
-				sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " AND kind = " + kind + " order by random() limit " + amount;
-			else
-				sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " order by random() limit " + amount;
-		} else {
+		if (kind >= 0)
+			sql = "select * from " + WORD_TABLE + " where unit=" + lessonID + " AND kind = " + kind;
+		else
 			sql = "select * from " + WORD_TABLE + " where unit=" + lessonID;
-		}
 		
 		cursor = myDB.rawQuery(sql, null);
 		

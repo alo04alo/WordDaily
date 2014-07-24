@@ -23,24 +23,22 @@ import android.widget.Toast;
 
 public class ViewPictureActivity extends Activity{
 	
-	Button btnAnswer1;
-	Button btnAnswer2;
-	Button btnAnswer3;
-	Button btnAnswer4;
+	private Button btnAnswer1;
+	private Button btnAnswer2;
+	private Button btnAnswer3;
+	private Button btnAnswer4;
 	
-	Button btnHome;
-	Button btnShowFuction;
+	private Button btnHome;
+	private Button btnShowFuction;
 	
-	Button btnRecommend;
-	Button btnAudio;
+	private Button btnRecommend;
+	private Button btnAudio;
 	
-	TextView tvWord;
+	private TextView tvWord;
 	
-	ImageView imgWord;	
+	private ImageView imgWord;	
 	
-	int amountWords = 0;
-	int type = 0;
-	int count = 0;
+	private int count = 0;
 		
 	List<Word> words;
 	@Override
@@ -63,14 +61,8 @@ public class ViewPictureActivity extends Activity{
 		
 		imgWord = (ImageView) findViewById(R.id.view_picture_img);
 		
-		
-		// only get words which has picture
-		type = 1;
-		// set amount of words need to get
-		amountWords = 20;
-		
 		// get number of words from DB
-		words = WordHandle.getListWord(GlobalData.current_lesson, type, amountWords);
+		words = WordHandle.getRandomListWord(GlobalData.current_lesson, GlobalData.WORD_INCLUDE_IMAGE, GlobalData.WORD_LIMIT);
 		
 		
 		loadNewQuestion();
@@ -138,12 +130,11 @@ public class ViewPictureActivity extends Activity{
 		// hide text
 		hideText();
 		
-		if (count == amountWords) {
+		if (count == GlobalData.WORD_LIMIT) {
 			// show result screen
 			Toast.makeText(getApplicationContext(), "Full rui nho", Toast.LENGTH_LONG).show();
 			return;
 		}
-//			Toast.makeText(getApplicationContext(), words.get(count).romaji, Toast.LENGTH_SHORT).show();
 		
 		Bitmap bitmap = GlobalData.getImageFromRaw(this, words.get(count).romaji);
 		imgWord.setImageBitmap(bitmap);
@@ -187,7 +178,7 @@ public class ViewPictureActivity extends Activity{
 		int positionTrueAnswer = random.nextInt(max - min + 1) + min;					
 		setTextForButton(positionTrueAnswer, words.get(count).hiragana);
 		
-		int[] numbers = getRandomThreeNumber(0, amountWords - 1, count);		
+		int[] numbers = getRandomThreeNumber(0, GlobalData.WORD_LIMIT - 1, count);		
 		int index = 0;
 		
 		// set remain answers

@@ -24,7 +24,7 @@ public class SummaryTab extends ListActivity {
           super.onCreate(savedInstanceState);
           
           int current_lesson = GlobalData.current_lesson;
-          words = WordHandle.getListWord(current_lesson, 0);
+          words = WordHandle.getListWord(current_lesson);
           hiragana = new String[words.size()];
           kanji = new String[words.size()];
           mean = new String[words.size()];

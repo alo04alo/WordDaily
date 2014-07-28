@@ -28,7 +28,6 @@ public class Exam1Activity extends Activity{
 	private List<Word> words;
 	private int count = 0;
 	private int positionTrueAnswer;
-	private int selectedAnswer;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -49,8 +48,7 @@ public class Exam1Activity extends Activity{
 
 			@Override
 			public void onClick(View v) {	
-				selectedAnswer = 1;
-				handleAnswer();
+				handleAnswer(1);
 			}
 		});
 
@@ -58,8 +56,7 @@ public class Exam1Activity extends Activity{
 
 			@Override
 			public void onClick(View v) {		
-				selectedAnswer = 2;
-				handleAnswer();		
+				handleAnswer(2);		
 			}
 		});
 
@@ -67,8 +64,7 @@ public class Exam1Activity extends Activity{
 
 			@Override
 			public void onClick(View v) {	
-				selectedAnswer = 3;
-				handleAnswer();
+				handleAnswer(3);
 			}
 		});
 
@@ -76,16 +72,14 @@ public class Exam1Activity extends Activity{
 
 			@Override
 			public void onClick(View v) {	
-				selectedAnswer = 4;
-				handleAnswer();
+				handleAnswer(4);
 			}
 		});
 	}
 	protected void loadNewQuestion() {
-
 		if (count == GlobalData.TEST_LIMIT) {
 			// show result screen
-			Toast.makeText(getApplicationContext(), "Full rui nho", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "Waitting Final Screen..... :))", Toast.LENGTH_LONG).show();
 			return;
 		}
 		
@@ -105,40 +99,14 @@ public class Exam1Activity extends Activity{
 		positionTrueAnswer = random.nextInt(max - min + 1) + min;					
 		setTextForButton(positionTrueAnswer, words.get(count).hiragana);
 
-		int[] numbers = getRandomThreeNumber(0, GlobalData.TEST_LIMIT - 1, count);		
+		int[] numbers = GlobalData.getRandomThreeNumber(0, GlobalData.TEST_LIMIT - 1, count);		
 		int index = 0;
-//		Toast.makeText(getApplicationContext(), numbers[0] + "_" + numbers[1] + "_" + numbers[2], Toast.LENGTH_LONG).show();
-		// set remain answers
+		
 		for (int i = min; i <= max; i++) {
 			if (i != positionTrueAnswer) {
 				setTextForButton(i, words.get(numbers[index]).hiragana);
 				index++;
 			}
-		}
-	}
-
-	private int[] getRandomThreeNumber(int min, int max, int ignore) {			
-
-		int[]  number = new int[3];
-		number[0] = getRandomOneNumber(min, max, ignore);
-		number[1] = getRandomOneNumber(min, max, ignore);
-		number[2] = getRandomOneNumber(min, max, ignore);
-
-		if ((number[0] != number[1]) && (number[0] != number[2]) && (number[1] != number[2])) {
-			return number;
-		} else {
-			return getRandomThreeNumber(min, max, ignore);
-		}
-
-	}
-
-	private int getRandomOneNumber(int min, int max, int ignore) {
-		Random random = new Random();
-		int number = random.nextInt(max - min + 1) + min;
-		if (number != ignore) {
-			return number;
-		} else {
-			return getRandomOneNumber(min, max, ignore);
 		}
 	}
 
@@ -160,79 +128,47 @@ public class Exam1Activity extends Activity{
 		}
 	}
 
-	private void handleAnswer() {		
-		// if the answer is true
-		if (selectedAnswer == positionTrueAnswer) {
-			switch (selectedAnswer) {
-			case 1:
-				setColorForButton(btnAnswer1, true);
-				break;
-			case 2:
-				setColorForButton(btnAnswer2, true);
-				break;
-			case 3:
-				setColorForButton(btnAnswer3, true);
-				break;
-			case 4:
-				setColorForButton(btnAnswer4, true);
-				break;
-			default:
-				break;
-			}
-
-			new Handler().postDelayed(new Runnable() {
-
-				@Override
-				public void run() {	
-					// load new question
-					loadNewQuestion();
-				}
-			}, 1000);
-		}
-//		 if the answer is fail
-		else {
-			switch (selectedAnswer) {
-			case 1:
-				setColorForButton(btnAnswer1, false);
-				break;
-			case 2:
-				setColorForButton(btnAnswer2, false);
-				break;
-			case 3:
-				setColorForButton(btnAnswer3, false);
-				break;
-			case 4:
-				setColorForButton(btnAnswer4, false);
-				break;
-			default:
-				break;
-			}
-			new Handler().postDelayed(new Runnable() {
-
-				@Override
-				public void run() {	
-					// load new question
-					loadNewQuestion();
-				}
-			}, 1000);
-		}
-	}
-
-	private void setColorForButton(Button button, boolean bool) {
-		AnimationDrawable animation = new AnimationDrawable();
-		if (bool == true) {
-			animation.addFrame(getResources().getDrawable(R.drawable.common_btn_border_true_answer), 200);
-			animation.addFrame(getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
-			animation.addFrame(getResources().getDrawable(R.drawable.common_btn_border_true_answer), 200);
-			animation.addFrame(getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
+	private void handleAnswer(int selectedAnswer) {		
+		// result = true if the answer is true else false
+		String answer = null;
+		Button trueButton;
+		Button falseButton;
+		
+		if (selectedAnswer == positionTrueAnswer){
+			trueButton = getButtonFromId(selectedAnswer); 
+			answer = trueButton.getText().toString();
+			GlobalData.setAnimationForButton(this, trueButton);
 		} else {
-			animation.addFrame(getResources().getDrawable(R.drawable.common_btn_border_false_answer), 200);
-			animation.addFrame(getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
-			animation.addFrame(getResources().getDrawable(R.drawable.common_btn_border_false_answer), 200);
-			animation.addFrame(getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
+			trueButton = getButtonFromId(positionTrueAnswer);
+			falseButton = getButtonFromId(selectedAnswer);
+			answer = falseButton.getText().toString();
+			GlobalData.setAnimationForButton(this, falseButton, trueButton);
 		}
-		animation.setOneShot(true);
-		button.setBackgroundDrawable(animation);	
-		animation.start();
+		
+		words.get(count).choose_answer = answer;
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {	
+				// load new question
+				loadNewQuestion();
+			}
+		}, 1000);
 	}
+	
+	private Button getButtonFromId(int id){
+		switch (id) {
+		case 1:
+			return btnAnswer1;
+		case 2:
+			return btnAnswer2;
+		case 3:
+			return btnAnswer3;
+		case 4:
+			return btnAnswer4;
+		default:
+			return null;
+		}
+	}
+	
 }

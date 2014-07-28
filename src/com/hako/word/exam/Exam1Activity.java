@@ -91,7 +91,7 @@ public class Exam1Activity extends Activity{
 
 	private void setTextForAnswers() {		
 		// set true answer
-		int number_of_answer = 4;
+		int number_of_answer = 4; // default number answer
 		Random random = new Random();
 		Button button;
 
@@ -120,12 +120,12 @@ public class Exam1Activity extends Activity{
 		if (selectedAnswer == positionTrueAnswer){
 			trueButton = getButtonFromId(selectedAnswer); 
 			answer = trueButton.getText().toString();
-			GlobalData.setAnimationForButton(this, trueButton);
+			GlobalData.setAnimationForButton(this, trueButton); // set Animation if correct answer
 		} else {
 			trueButton = getButtonFromId(positionTrueAnswer);
 			falseButton = getButtonFromId(selectedAnswer);
 			answer = falseButton.getText().toString();
-			GlobalData.setAnimationForButton(this, falseButton, trueButton);
+			GlobalData.setAnimationForButton(this, falseButton, trueButton); // set Animation if fail answer
 		}
 		
 		words.get(count-1).choose_answer = answer;

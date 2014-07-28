@@ -1,8 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-
-</LinearLayout>
+    <RelativeLayout 
+        android:id="@+id/exam_3_top_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        
+        <TextView 
+            android:id="@+id/exam_3_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"        
+           	android:layout_alignParentRight="true"
+           	android:text="03:00"
+           	android:textColor="#003200"
+           	android:textSize="18dp"
+           	android:textStyle="bold"
+           	android:layout_marginRight="10dp" />
+    </RelativeLayout>
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"   
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/exam_3_below"     
+        android:layout_below="@+id/exam_3_top_view"
+        android:gravity="center">
+	    <Button 
+            android:id="@+id/exam_3_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"        
+           	android:layout_alignParentRight="true"
+           	android:layout_marginRight="10dp"
+            android:background="@drawable/bt_audio_voca"/>
+	</LinearLayout>
+	<LinearLayout 
+	    android:id="@+id/exam_3_below"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:layout_alignParentBottom="true"
+	    android:paddingBottom="20dp">
+		<RelativeLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+		    <Button 
+		        android:id="@+id/exam_3_answer1"
+		        style="@style/AnswerButton"
+		        android:layout_alignParentLeft="true"
+		        android:layout_marginLeft="10dp"
+		        android:text="かばん"/>
+		    <Button 
+		        android:id="@+id/exam_3_answer2"
+		        style="@style/AnswerButton"
+		        android:layout_alignParentRight="true"
+		        android:layout_marginRight="10dp"
+		        android:text="やさい"/>
+		</RelativeLayout>
+		<RelativeLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:paddingTop="20dp">
+		    <Button 
+		        android:id="@+id/exam_3_answer3"
+		        style="@style/AnswerButton"
+		        android:layout_alignParentLeft="true"
+		        android:layout_marginLeft="10dp"
+		        android:text="くだもの"/>
+		    <Button 
+		        android:id="@+id/exam_3_answer4"
+		        style="@style/AnswerButton"
+		        android:layout_alignParentRight="true"
+		        android:layout_marginRight="10dp"
+		        android:text="カード"/>
+		</RelativeLayout>
+	</LinearLayout>
+</RelativeLayout>

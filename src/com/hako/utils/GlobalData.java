@@ -181,7 +181,7 @@ public class GlobalData {
 		    long start = descriptor.getStartOffset();
 		    long end = descriptor.getLength();
 		    mediaPlayer.setDataSource(descriptor.getFileDescriptor(), start, end);
-		    mediaPlayer.setVolume(3f, 3f);
+		    mediaPlayer.setVolume(8f, 8f);
 		    mediaPlayer.prepare();
 		    mediaPlayer.start(); 
 		    

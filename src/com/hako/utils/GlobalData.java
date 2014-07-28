@@ -1,4 +1,5 @@
 package com.hako.utils;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -7,11 +8,13 @@ import com.hako.base.DatabaseHandler;
 import com.hako.base.Lesson;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 
 public class GlobalData {
 	public static final int WORD_LIMIT = 20;
@@ -107,4 +110,23 @@ public class GlobalData {
 		return Bitmap.createScaledBitmap(image, (int)(image.getWidth()*wScale), (int)(image.getHeight()*hScale), true);
 	}
 	
+	public static void playAudio(Context context, String fileName) {
+		MediaPlayer player = new MediaPlayer();
+		try {
+			AssetFileDescriptor assetFile = context.getAssets().openFd(fileName + ".mp3");		
+			player.setDataSource(assetFile.getFileDescriptor(), assetFile.getStartOffset(), assetFile.getLength());
+			assetFile.close();
+			player.prepare();
+			player.setLooping(false);
+			player.start();			
+//			player.setVolume(3, 3);
+		} catch (IllegalArgumentException e) {
+			// Error handling
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
 }

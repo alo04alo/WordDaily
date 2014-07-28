@@ -1,6 +1,5 @@
 package com.hako.word.viewPicture;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -11,21 +10,13 @@ import com.hako.word.MainActivity;
 import com.hako.word.R;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.MotionEvent.PointerCoords;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -53,7 +44,7 @@ public class ViewPictureActivity extends Activity{
 	private int positionTrueAnswer;
 	private int selectedAnswer;
 	
-	private MediaPlayer m;
+	private MediaPlayer media;
 		
 	List<Word> words;
 	@Override
@@ -61,6 +52,7 @@ public class ViewPictureActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_picture_view);
 		
+		media = new MediaPlayer();
 		btnHome = (Button) findViewById(R.id.view_picture_btn_home);
 		btnShowFuction = (Button) findViewById(R.id.view_picture_btn_down);
 		
@@ -140,21 +132,25 @@ public class ViewPictureActivity extends Activity{
 			public void onClick(View arg0) {
 //				Toast.makeText(getApplicationContext(), words.get(count - 1).romaji, Toast.LENGTH_SHORT).show();				
 //				GlobalData.playAudio(getApplicationContext(), words.get(count - 1).romaji);
+				media = new MediaPlayer();
 				try {
-			        if (m.isPlaying()) {
-			            m.stop();
-			            m.release();
-			            m = new MediaPlayer();
+			        if (media.isPlaying()) {
+			        	media.stop();
+			        	media.release();
+			        	media = new MediaPlayer();
 			        }
 
 			        AssetFileDescriptor descriptor = getAssets().openFd(words.get(count - 1).romaji + ".mp3");
-			        m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+			        if (descriptor == null) {
+			        	descriptor = getAssets().openFd("anata.mp3");
+			        }
+			        media.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
 			        descriptor.close();
 
-			        m.prepare();
-			        m.setVolume(1f, 1f);
-			        m.setLooping(false);
-			        m.start();
+			        media.prepare();
+			        media.setVolume(3f, 3f);
+			        media.setLooping(false);
+			        media.start();
 			    } catch (Exception e) {
 			        e.printStackTrace();
 			    }

@@ -3,13 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-	
-   <!--  <Button
-        android:id="@+id/bt_prev"
-        style="@style/DashboardButton"
-        android:layout_width="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:drawableTop="@drawable/bt_prev" /> -->
     
     <ImageView 
         android:id="@+id/vocabulary_iv_word"
@@ -20,12 +13,6 @@
         android:src="@drawable/kasa"    
         />
     
-   <!--  <Button 
-        android:id="@+id/bt_next"
-        style="@style/DashboardButton"
-        android:drawableTop="@drawable/bt_next" 
-        android:layout_alignParentRight="true"/> -->
-
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
@@ -40,6 +27,7 @@
            style="@style/DashboardButton"
            android:layout_alignParentBottom="true"
            android:layout_alignParentLeft="true"
+           android:onClick="buttonClick"
            android:drawableTop="@drawable/bt_auto" />
        <TextView 
            android:id="@+id/vocabulary_tv_hiragana" 
@@ -69,6 +57,7 @@
            style="@style/DashboardButton"
            android:layout_alignParentBottom="true"
            android:layout_alignParentRight="true"
+           android:onClick="buttonClick"
            android:drawableTop="@drawable/bt_audio" />
    </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.hako.word.vocabulary;
 
+import com.hako.utils.Debug;
 import com.hako.utils.GlobalData;
 import com.hako.word.R;
 

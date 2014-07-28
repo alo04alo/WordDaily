@@ -9,7 +9,6 @@ import com.hako.utils.GlobalData;
 import com.hako.word.R;
 
 import android.app.Activity;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -92,39 +91,23 @@ public class Exam1Activity extends Activity{
 
 	private void setTextForAnswers() {		
 		// set true answer
-		int min = 1;
-		int max = 4;
+		int number_of_answer = 4;
 		Random random = new Random();
+		Button button;
 
-		positionTrueAnswer = random.nextInt(max - min + 1) + min;					
-		setTextForButton(positionTrueAnswer, words.get(count).hiragana);
+		positionTrueAnswer = random.nextInt(number_of_answer) + 1;
+		button = getButtonFromId(positionTrueAnswer);
+		button.setText(words.get(count).hiragana);
 
 		int[] numbers = GlobalData.getRandomThreeNumber(0, GlobalData.TEST_LIMIT - 1, count);		
 		int index = 0;
 		
-		for (int i = min; i <= max; i++) {
+		for (int i = 1; i <= number_of_answer; i++) {
 			if (i != positionTrueAnswer) {
-				setTextForButton(i, words.get(numbers[index]).hiragana);
+				button = getButtonFromId(i);
+				button.setText(words.get(numbers[index]).hiragana);
 				index++;
 			}
-		}
-	}
-
-	private void setTextForButton(int id, String text) {
-		switch (id) {
-		case 1:
-			btnAnswer1.setText(text);
-			break;
-		case 2:
-			btnAnswer2.setText(text);
-			break;
-		case 3:
-			btnAnswer3.setText(text);
-			break;
-		case 4: btnAnswer4.setText(text);
-			break;
-		default:
-			break;
 		}
 	}
 
@@ -145,7 +128,8 @@ public class Exam1Activity extends Activity{
 			GlobalData.setAnimationForButton(this, falseButton, trueButton);
 		}
 		
-		words.get(count).choose_answer = answer;
+		words.get(count-1).choose_answer = answer;
+		
 		new Handler().postDelayed(new Runnable() {
 
 			@Override

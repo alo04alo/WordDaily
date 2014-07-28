@@ -97,6 +97,7 @@ public class GlobalData {
 		trueButton.setBackgroundDrawable(animationForTrue);	
 		animationForTrue.start();
 	}
+	
 	public static void CopyStream(InputStream is, OutputStream os) {
 		final int buffer_size = 1024;
 		try {
@@ -194,23 +195,5 @@ public class GlobalData {
 		}
 	        
 	}
-	public static void playAudio(Context context, String fileName) {
-		MediaPlayer player = new MediaPlayer();
-		try {
-			AssetFileDescriptor assetFile = context.getAssets().openFd(fileName + ".mp3");		
-			player.setDataSource(assetFile.getFileDescriptor(), assetFile.getStartOffset(), assetFile.getLength());
-			assetFile.close();
-			player.prepare();
-			player.setLooping(false);
-			player.start();			
-//			player.setVolume(3, 3);
-		} catch (IllegalArgumentException e) {
-			// Error handling
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
-	}
+
 }

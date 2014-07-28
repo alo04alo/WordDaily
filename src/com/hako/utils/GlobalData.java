@@ -110,6 +110,27 @@ public class GlobalData {
 		return Bitmap.createScaledBitmap(image, (int)(image.getWidth()*wScale), (int)(image.getHeight()*hScale), true);
 	}
 	
+	public static void playAudioFromAsset(Context context, String fileName) {
+		MediaPlayer mediaPlayer=new MediaPlayer();
+		try{
+			AssetFileDescriptor descriptor = context.getAssets().openFd(fileName);
+		    long start = descriptor.getStartOffset();
+		    long end = descriptor.getLength();
+		    mediaPlayer.setDataSource(descriptor.getFileDescriptor(), start, end);
+		    mediaPlayer.setVolume(3f, 3f);
+		    mediaPlayer.prepare();
+		    mediaPlayer.start(); 
+		    
+		} catch (IllegalArgumentException e) {
+			// Error handling
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	        
+	}
 	public static void playAudio(Context context, String fileName) {
 		MediaPlayer player = new MediaPlayer();
 		try {

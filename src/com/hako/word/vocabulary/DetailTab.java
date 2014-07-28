@@ -10,7 +10,6 @@ import com.hako.base.WordHandle;
 import com.hako.utils.GlobalData;
 import com.hako.word.R;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -105,7 +104,7 @@ public class DetailTab extends FragmentActivity {
 		                        }
 		                    });
 		                }
-		            }, 4000, 2000);
+		            }, 1000, 2000);
 				} else {
 					if (timerAuto != null)
 						timerAuto.cancel();

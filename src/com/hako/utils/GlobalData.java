@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 
 public class GlobalData {
 	public static final int WORD_LIMIT = 20;
+	public static final int TEST_LIMIT = 15;
 	public static final int WORD_INCLUDE_IMAGE = 1;
 	public static List<Lesson> lessons;
 	public static DatabaseHandler db;	

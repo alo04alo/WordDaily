@@ -41,6 +41,22 @@
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
         <activity 
+            android:name="com.hako.word.exam.ExamTabActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
+            android:name="com.hako.word.exam.Exam1Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
+            android:name="com.hako.word.exam.Exam2Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
+            android:name="com.hako.word.exam.Exam3Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
             android:name="com.hako.word.lesson.SubLesson"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>

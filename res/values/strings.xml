@@ -4,5 +4,6 @@
     <string name="app_name">DailyWord</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="exam">Kiểm tra</string>
 
 </resources>

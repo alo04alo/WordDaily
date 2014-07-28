@@ -7,6 +7,7 @@ import com.hako.base.Lesson;
 import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
+import com.hako.word.exam.ExamTabActivity;
 import com.hako.word.viewPicture.ViewPictureActivity;
 import com.hako.word.vocabulary.VocabularyTabBar;
 
@@ -137,7 +138,6 @@ public class SubLesson extends Activity {
 					dialogRequireTest.show();
 					
 				}				
-				
 			}
 		});
 		
@@ -153,6 +153,21 @@ public class SubLesson extends Activity {
 					dialogRequireTest.show();
 					
 				}				
+			}
+		});
+		
+		btnTest.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (checkEnableLesson() == true) {
+					startActivity(new Intent(getApplicationContext(), ExamTabActivity.class));
+				} else {
+					// show dialog to require testing 
+					dialogRequireTest = createDialogRequireTest();
+					dialogRequireTest.show();
+					
+				}
 			}
 		});
 	}

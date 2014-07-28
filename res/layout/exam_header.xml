@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+	<LinearLayout
+	    style="@style/ActionBarCompat"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content">	    
+		    <Button 
+		        android:id="@+id/vocabulary_btn_home"
+		        style="@style/DashboardButton"
+		        android:layout_marginBottom="-10dp"
+		        android:layout_marginLeft="10dp"
+		        android:drawableTop="@drawable/bt_home"/>
+	    </LinearLayout>
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:gravity="center_horizontal">
+		    <Button 
+		        android:id="@+id/vocabulary_btn_down"        
+		        style="@style/DashboardButton"        
+		        android:drawableRight="@drawable/down_arrow_press"
+		        android:textColor="@android:color/white"
+		        android:textStyle="bold"		        
+		        android:gravity="left|center_vertical"
+		        android:text="Kiểm tra"/>
+	    </LinearLayout>   	
+</RelativeLayout>

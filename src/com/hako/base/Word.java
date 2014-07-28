@@ -9,6 +9,7 @@ public class Word {
 	public String mean_vi;
 	public String mean_en;
 	public int kind;
+	public String choose_answer;
 	
 	public Word(){
 		

@@ -24,6 +24,10 @@ public class GlobalData {
 	public static final int WORD_LIMIT = 20;
 	public static final int TEST_LIMIT = 15;
 	public static final int WORD_INCLUDE_IMAGE = 1;
+	public static final String COLOR_TEXT_TAB_BAR = "#48698a";
+	public static final String COLOR_BACKGROUND_TAB_BAR = "#5b84ad";
+	public static final char[] charArray = { 'あ', 'い', 'う', 'え', 'お','か','き','く','け','こ','が','ぎ','ご','げ','ご','さ','し','す','せ','そ','ざ','じ','ず','ぜ','ぞ','た','ち','つ','て','と','だ','ぢ','ず','で','ど','な','に','ぬ','ね','の','は','ひ','ふ','へ','ほ','ば','び','ぶ','べ','ぼ','ぱ','ぴ','ぷ','ぺ','ぽ','ま','み','む','め','も','や','ゆ','よ','ら','り','る','れ','ろ','わ','を','ん','っ'};
+	
 	public static List<Lesson> lessons;
 	public static DatabaseHandler db;	
 	public static String[] allFunctions = {"Từ vựng", "Khớp từ", "Chọn tranh", "Nghe từ", "Xem tranh", "Kiểm tra"};

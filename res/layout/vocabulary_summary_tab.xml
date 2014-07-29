@@ -3,21 +3,24 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="5dp"
     android:paddingBottom="5dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:background="@drawable/lv_vocabulary_summary">
  
  	<LinearLayout 
+ 	    android:id="@+id/voca_layout_top"
  	    android:orientation="horizontal"
  	    android:layout_width="match_parent"
  	    android:paddingLeft="5dp"
+ 	    android:paddingRight="50dp"
  	    android:layout_height="wrap_content">
  	    
  	    <TextView
 	        android:id="@+id/tvHiragana"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="summer"
 	        android:textColor="#B82500"
 	        android:textSize="30px" >
 	    </TextView>
@@ -26,23 +29,22 @@
 	        android:id="@+id/tvKanji"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="15dp"
-	        android:text="summer"
 	        android:textSize="30px" >
 	    </TextView>
 	</LinearLayout>
     
  	<LinearLayout 
  	    android:layout_width="match_parent"
+ 	    android:layout_below="@+id/voca_layout_top" 	    
  	    android:paddingLeft="5dp"
- 	    android:layout_marginTop="25dp"
+ 	    android:layout_marginTop="8dp"
+ 	    android:paddingRight="50dp"
 	    android:layout_height="wrap_content">
  	    <TextView
 	        android:id="@+id/tvMean"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignBottom="@id/tvHiragana"
-	        android:text="summer"
 	        android:textColor="#003300"
 	        android:textSize="30px" >
     	</TextView>
@@ -57,9 +59,9 @@
  	    android:layout_alignParentTop="true" >
  	    
  	    <Button
-           android:id="@+id/bt_audio_voca"
+           android:id="@+id/voca_bt_audio"
            style="@style/ButtonImage"
-           android:drawableTop="@drawable/bt_audio_voca" />
+           android:drawableTop="@drawable/btn_audio" />
  	    
  	</LinearLayout>
  

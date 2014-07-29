@@ -8,6 +8,7 @@ import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
 import com.hako.word.exam.ExamTabActivity;
+import com.hako.word.selectPicture.SelectPictureActivity;
 import com.hako.word.viewPicture.ViewPictureActivity;
 import com.hako.word.vocabulary.VocabularyTabBar;
 
@@ -153,6 +154,14 @@ public class SubLesson extends Activity {
 					dialogRequireTest.show();
 					
 				}				
+			}
+		});
+		
+		btnSelectPicture.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getApplicationContext(), SelectPictureActivity.class));
 			}
 		});
 		

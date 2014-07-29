@@ -1,5 +1,6 @@
 package com.hako.word.vocabulary;
 
+import com.hako.base.WordHandle;
 import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
@@ -65,13 +66,13 @@ public class VocabularyTabBar extends TabActivity implements OnTabChangeListener
         int tabCount = tabHost.getTabWidget().getTabCount();
         
         for (int i = 0; i < tabCount; i++) {
-            final View view = tabHost.getTabWidget().getChildTabViewAt(i);
+            View view = tabHost.getTabWidget().getChildTabViewAt(i);
             if ( view != null ) {
                 // reduce height of the tab
-                view.getLayoutParams().height *= 0.66;
-                view.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                view.getLayoutParams().height *= 1.16;
+                view.setBackgroundColor(Color.parseColor(GlobalData.COLOR_BACKGROUND_TAB_BAR));
                 //  get title text view
-                final View textView = view.findViewById(android.R.id.title);
+                View textView = view.findViewById(android.R.id.title);
                 if ( textView instanceof TextView ) {
                     // just in case check the type
 
@@ -79,8 +80,8 @@ public class VocabularyTabBar extends TabActivity implements OnTabChangeListener
                     ((TextView) textView).setGravity(Gravity.CENTER);
                     // wrap text
                     ((TextView) textView).setSingleLine(false);
-                    ((TextView) textView).setTextColor(Color.parseColor("#003300"));
-                    ((TextView) textView).setTextSize(20);
+                    ((TextView) textView).setTextColor(Color.parseColor("#ffffff"));
+                    ((TextView) textView).setTextSize(25);
 
                     // explicitly set layout parameters
                     textView.getLayoutParams().height = ViewGroup.LayoutParams.FILL_PARENT;
@@ -91,6 +92,10 @@ public class VocabularyTabBar extends TabActivity implements OnTabChangeListener
         
         tabHost.getTabWidget().setCurrentTab(0);
         tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#ffffff"));
+        View textView = tabHost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
+        if ( textView instanceof TextView ) {
+            ((TextView) textView).setTextColor(Color.parseColor(GlobalData.COLOR_TEXT_TAB_BAR));
+        }
         
         // set event click for button
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -147,11 +152,18 @@ public class VocabularyTabBar extends TabActivity implements OnTabChangeListener
 	  
 	  for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)
 	    {
-	        tabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#F5F5F5"));
+	        tabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor(GlobalData.COLOR_BACKGROUND_TAB_BAR));
+	        View textView = tabHost.getTabWidget().getChildTabViewAt(i).findViewById(android.R.id.title);
+	        if ( textView instanceof TextView ) {
+                ((TextView) textView).setTextColor(Color.parseColor("#ffffff"));
+            }
 	    } 
 
 	  tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundColor(Color.parseColor("#ffffff"));
-	  
+	  View textView = tabHost.getTabWidget().getChildTabViewAt(tabHost.getCurrentTab()).findViewById(android.R.id.title);
+      if ( textView instanceof TextView ) {
+          ((TextView) textView).setTextColor(Color.parseColor(GlobalData.COLOR_TEXT_TAB_BAR));
+      }
   }
 
 }

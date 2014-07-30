@@ -47,7 +47,27 @@
             android:name="com.hako.matchword.MatchWordActivity" >
         </activity>
         <activity 
+            android:name="com.hako.word.exam.ExamTabActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
+            android:name="com.hako.word.exam.Exam1Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
+            android:name="com.hako.word.exam.Exam2Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
+            android:name="com.hako.word.exam.Exam3Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
             android:name="com.hako.word.viewPicture.ViewPictureActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity 
+            android:name="com.hako.word.selectPicture.SelectPictureActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
     </application>

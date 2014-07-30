@@ -5,67 +5,58 @@
     android:orientation="vertical" >
     
     <RelativeLayout 
-        android:id="@+id/view_picture_top_view"
+        android:id="@+id/exam_3_top_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
         
-        <Button 
-            android:id="@+id/view_picture_btn_recommend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"      
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"      
-            android:background="@drawable/view_picture_btn_recommend"/>
-        <Button 
-            android:id="@+id/view_picture_btn_audio"
+        <TextView 
+            android:id="@+id/exam_3_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"        
            	android:layout_alignParentRight="true"
-           	android:layout_marginRight="10dp"
-            android:background="@drawable/btn_audio"/>
+           	android:text="03:00"
+           	android:textColor="#003200"
+           	android:textSize="18dp"
+           	android:textStyle="bold"
+           	android:layout_marginRight="10dp" />
     </RelativeLayout>
     <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"   
-        android:layout_marginTop="10dp"     
-        android:layout_below="@+id/view_picture_top_view"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/exam_3_below"     
+        android:layout_below="@+id/exam_3_top_view"
         android:gravity="center">
-	    <ImageView 
-	        android:id="@+id/view_picture_img"
-	        android:layout_width="198dp"
-	    	android:layout_height="256dp"
-	    	android:layout_gravity="center"
-	        android:src="@drawable/kasa"/>
-	    <TextView 
-	        android:id="@+id/view_picture_tv"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center_horizontal"
-	        android:textSize="25dp"
-	        android:textColor="#1F497D"
-	        android:textStyle="bold"
-	        android:text="Cái ô"/>
+	    <Button 
+            android:id="@+id/exam_3_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"        
+           	android:layout_alignParentRight="true"
+           	android:layout_marginRight="10dp"
+            android:background="@drawable/btn_audio"/>
 	</LinearLayout>
 	<LinearLayout 
+	    android:id="@+id/exam_3_below"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
 	    android:layout_alignParentBottom="true"
-	    android:paddingBottom="10dp">
+	    android:paddingBottom="20dp">
 		<RelativeLayout 
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content">
 		    <Button 
-		        android:id="@+id/view_picture_answer1"
+		        android:id="@+id/exam_3_answer1"
 		        style="@style/AnswerButton"
 		        android:layout_alignParentLeft="true"
 		        android:layout_marginLeft="10dp"
 		        android:text="かばん"/>
 		    <Button 
-		        android:id="@+id/view_picture_answer2"
+		        android:id="@+id/exam_3_answer2"
 		        style="@style/AnswerButton"
 		        android:layout_alignParentRight="true"
 		        android:layout_marginRight="10dp"
@@ -76,13 +67,13 @@
 		    android:layout_height="wrap_content"
 		    android:paddingTop="20dp">
 		    <Button 
-		        android:id="@+id/view_picture_answer3"
+		        android:id="@+id/exam_3_answer3"
 		        style="@style/AnswerButton"
 		        android:layout_alignParentLeft="true"
 		        android:layout_marginLeft="10dp"
 		        android:text="くだもの"/>
 		    <Button 
-		        android:id="@+id/view_picture_answer4"
+		        android:id="@+id/exam_3_answer4"
 		        style="@style/AnswerButton"
 		        android:layout_alignParentRight="true"
 		        android:layout_marginRight="10dp"

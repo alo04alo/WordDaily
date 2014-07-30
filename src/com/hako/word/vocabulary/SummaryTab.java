@@ -18,6 +18,7 @@ public class SummaryTab extends ListActivity {
 	  private String[] hiragana;
 	  private String[] kanji;
 	  private String[] mean;
+	  private String[] romaji;
 	  
       @Override
       public void onCreate(Bundle savedInstanceState) {
@@ -28,12 +29,14 @@ public class SummaryTab extends ListActivity {
           hiragana = new String[words.size()];
           kanji = new String[words.size()];
           mean = new String[words.size()];
+          romaji = new String[words.size()];
           for(int index = 0; index < words.size(); index++){
         	  hiragana[index] = words.get(index).hiragana;
         	  kanji[index] = words.get(index).kanji;
         	  mean[index] = words.get(index).mean_vi;
+        	  romaji[index] = words.get(index).romaji;
           }
-          setListAdapter(new VocabularyArrayAdapter(this, hiragana, kanji, mean));
+          setListAdapter(new VocabularyArrayAdapter(this, hiragana, kanji, mean, romaji));
         }
       
       @Override

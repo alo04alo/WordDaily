@@ -5,11 +5,9 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="20" />
-
+        android:minSdkVersion="9"
+        android:targetSdkVersion="19" />
     <application
-        android:name=".WordSupport"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -47,6 +45,10 @@
         <activity
             android:theme="@style/Theme.AppCompat.Light"
             android:name="com.hako.matchword.MatchWordActivity" >
+        </activity>
+        <activity 
+            android:name="com.hako.word.viewPicture.ViewPictureActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
     </application>
 

@@ -14,4 +14,8 @@ public class WordHandle {
 	public static List<Word> getListWord(int lessonId){
 		return db.getListWord(lessonId);
 	}
+	
+	public static List<Word> getRandomListWord(int lessonId, int kind, int limit){
+		return db.getRandomListWord(lessonId, kind, limit);
+	}
 }

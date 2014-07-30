@@ -11,7 +11,6 @@ import com.hako.word.lesson.SubLesson;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -57,7 +56,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
             	Intent i = new Intent(MainActivity.this, SubLesson.class);
-            	((WordSupport)getApplication()).current_lesson = position + 1;
+            	GlobalData.current_lesson = position + 1;
             	startActivity(i);
             }
         });

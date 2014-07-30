@@ -7,48 +7,49 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-       	>
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="com.hako.word.SplashScreen"
-            android:theme="@android:style/Theme.Light.NoTitleBar"
-            android:label="@string/app_name" >
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-            android:name="com.hako.word.MainActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar"> 
+        <activity
+            android:name=".MainActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.vocabulary.SummaryTab"
-            android:theme="@android:style/Theme.Light.NoTitleBar"> 
+        <activity
+            android:name=".vocabulary.SummaryTab"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.vocabulary.DetailTab"
-            android:theme="@android:style/Theme.Light.NoTitleBar"> 
+        <activity
+            android:name=".vocabulary.DetailTab"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.vocabulary.VocabularyTabBar"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".vocabulary.VocabularyTabBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.lesson.SubLesson"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".lesson.SubLesson"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:theme="@style/Theme.AppCompat.Light"
+            android:name="com.hako.matchword.MatchWordActivity" >
         </activity>
         <activity 
             android:name="com.hako.word.viewPicture.ViewPictureActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
-        
     </application>
 
 </manifest>

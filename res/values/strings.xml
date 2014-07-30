@@ -4,5 +4,6 @@
     <string name="app_name">DailyWord</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="matchword_timer_default_text">4:00</string>
 
 </resources>

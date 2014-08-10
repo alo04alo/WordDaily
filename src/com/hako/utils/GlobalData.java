@@ -7,9 +7,17 @@ import java.util.Random;
 
 import com.hako.base.DatabaseHandler;
 import com.hako.base.Lesson;
+import com.hako.matchword.MatchWordActivity;
 import com.hako.word.R;
+import com.hako.word.exam.ExamTabActivity;
+import com.hako.word.selectPicture.SelectPictureActivity;
+import com.hako.word.viewPicture.ViewPictureActivity;
+import com.hako.word.viewPicture.ViewPictureArrayAdapter;
+import com.hako.word.vocabulary.VocabularyTabBar;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -18,7 +26,12 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class GlobalData {
 	public static final int WORD_LIMIT = 20;
@@ -31,7 +44,7 @@ public class GlobalData {
 	public static List<Lesson> lessons;
 	public static DatabaseHandler db;	
 	public static String[] allFunctions = {"Từ vựng", "Khớp từ", "Chọn tranh", "Nghe từ", "Xem tranh", "Kiểm tra"};
-	public static int current_lesson;
+	public static int current_lesson;	
 	
 	public static DatabaseHandler openDatabase(Context context){
 		db = new DatabaseHandler(context);
@@ -66,13 +79,20 @@ public class GlobalData {
 		}
 	}
 	
-	public static void setAnimationForButton(Context context, Button button) {
+	public static void setAnimationForButton(Context context, Button button, boolean answer) {
 		// True answer
 		AnimationDrawable animation = new AnimationDrawable();
-		animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_border_true_answer), 200);
-		animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
-		animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_border_true_answer), 200);
-		animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
+		if (answer == true) {
+			animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_border_true_answer), 200);
+			animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
+			animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_border_true_answer), 200);
+			animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
+		} else {
+			animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_border_false_answer), 200);
+			animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
+			animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_border_false_answer), 200);
+			animation.addFrame(context.getResources().getDrawable(R.drawable.common_btn_boder_normal_answer), 200);
+		}
 		animation.setOneShot(true);
 		button.setBackgroundDrawable(animation);	
 		animation.start();
@@ -179,15 +199,18 @@ public class GlobalData {
 	}
 	
 	public static void playAudioFromAsset(Context context, String fileName) {
-		MediaPlayer mediaPlayer=new MediaPlayer();
+		MediaPlayer mediaPlayer = null;
 		try{
+			if (mediaPlayer == null) {
+				mediaPlayer = new MediaPlayer();
+			}
 			AssetFileDescriptor descriptor = context.getAssets().openFd(fileName);
 		    long start = descriptor.getStartOffset();
 		    long end = descriptor.getLength();
 		    mediaPlayer.setDataSource(descriptor.getFileDescriptor(), start, end);
 		    mediaPlayer.setVolume(8f, 8f);
 		    mediaPlayer.prepare();
-		    mediaPlayer.start(); 
+		    mediaPlayer.start();
 		    
 		} catch (IllegalArgumentException e) {
 			// Error handling
@@ -198,6 +221,51 @@ public class GlobalData {
 			e.printStackTrace();
 		}
 	        
+	}
+	
+	public static AlertDialog createDialogGames(final Context context) {
+		String gameName[] = GlobalData.allFunctions;
+		
+		ContextThemeWrapper wrapper = new ContextThemeWrapper(context, android.R.style.Theme_Holo);
+		LayoutInflater inflater = (LayoutInflater) wrapper.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(wrapper);
+		
+		View view = (View) inflater.inflate(R.layout.common_dialog_function, null);
+		alertDialogBuilder.setView(view);
+		alertDialogBuilder.setCancelable(true);
+		alertDialogBuilder.setInverseBackgroundForced(true);
+		
+		final AlertDialog alertDialog = alertDialogBuilder.create();		
+		
+		ListView lv = (ListView) view.findViewById(R.id.lvFunction);
+		lv.setAdapter(new ViewPictureArrayAdapter(context, gameName));
+		lv.setClickable(true);	
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				((DialogGamesActionListener) context).onItemClick(arg0, arg1, arg2, arg3);
+			}
+		});
+		return alertDialog;
+	}
+	
+	public static void startGameActivity(Context context, String nameGame) {
+		if (nameGame == "Từ vựng") {
+			context.startActivity(new Intent(context, VocabularyTabBar.class));			
+		} else if (nameGame == "Khớp từ") {
+			context.startActivity(new Intent(context, MatchWordActivity.class));
+		} else if (nameGame == "Chọn tranh") {
+			context.startActivity(new Intent(context, SelectPictureActivity.class));
+		} else if (nameGame == "Nghe từ") {
+//			context.startActivity(new Intent(context, VocabularyTabBar.class));
+		} else if (nameGame == "Xem tranh") {
+			context.startActivity(new Intent(context, ViewPictureActivity.class));
+		} else if (nameGame == "Kiểm tra") {
+			context.startActivity(new Intent(context, ExamTabActivity.class));
+		}
 	}
 
 }

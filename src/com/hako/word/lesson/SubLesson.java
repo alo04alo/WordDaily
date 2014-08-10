@@ -246,8 +246,7 @@ public class SubLesson extends Activity {
 			Lesson lesson = lessons.get(index);
 			titleLesson[index] = lesson.title;
 			descriptionLesson[index] = lesson.discription;
-		}
-		
+		}		
             
         ContextThemeWrapper wrapper = new ContextThemeWrapper(this, android.R.style.Theme_Holo);
         LayoutInflater inflater = (LayoutInflater) wrapper.getSystemService(LAYOUT_INFLATER_SERVICE);

@@ -1,5 +1,6 @@
 package com.hako.word.selectPicture;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -8,21 +9,22 @@ import com.hako.base.WordHandle;
 import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
-import com.hako.word.viewPicture.ViewPictureActivity;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix.ScaleToFit;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,9 @@ public class SelectPictureActivity extends Activity {
 	List<Word> words;
 	private int count = 0;
 	private int positionTrueAnswer;
+	private boolean flagTrue = false;
+	private List<Button>  disibleList;
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);			
@@ -72,71 +77,69 @@ public class SelectPictureActivity extends Activity {
 		
 		loadNewQuestion();
 		
-		btn1.setOnClickListener(new View.OnClickListener() {
+		img1.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
-			public void onClick(View v) {
-				handleAnswer(1);
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						btn1.setBackgroundResource(R.drawable.btn_answer_background_press);
+						break;
+					case MotionEvent.ACTION_UP:
+						handleAnswer(1);
+						break;
+				}
+				return true;
 			}
 		});
 		
-		img1.setOnClickListener(new View.OnClickListener() {
+		img2.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
-			public void onClick(View v) {
-				handleAnswer(1);
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						btn2.setBackgroundResource(R.drawable.btn_answer_background_press);
+						break;
+					case MotionEvent.ACTION_UP:
+						handleAnswer(2);
+						break;
+				}
+				return true;
 			}
 		});
 		
-		btn2.setOnClickListener(new View.OnClickListener() {
+		img3.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
-			public void onClick(View v) {
-				handleAnswer(2);
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						btn3.setBackgroundResource(R.drawable.btn_answer_background_press);
+						break;
+					case MotionEvent.ACTION_UP:
+						handleAnswer(3);
+						break;
+				}
+				return true;
+			}
+		});
 
-			}
-		});
-		
-		img2.setOnClickListener(new View.OnClickListener() {
+		img4.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
-			public void onClick(View v) {
-				handleAnswer(2);
-
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						btn4.setBackgroundResource(R.drawable.btn_answer_background_press);
+						break;
+					case MotionEvent.ACTION_UP:
+						handleAnswer(4);
+						break;
+				}
+				return true;
 			}
-		});
-		
-		btn3.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				handleAnswer(3);
-			}
-		});
-		
-		img3.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				handleAnswer(3);
-			}
-		});
-		
-		btn4.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				handleAnswer(4);
-			}
-		});
-		
-		img4.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				handleAnswer(4);
-			}
-		});
+		});		
 		
 		btnAudio.setOnClickListener(new View.OnClickListener() {
 			
@@ -165,36 +168,110 @@ public class SelectPictureActivity extends Activity {
 	}
 	
 	protected void handleAnswer(int selectedAnswer) {
-		Button trueButton;
-		Button falseButton;
-		String answer = null;
-		if (selectedAnswer == positionTrueAnswer) {
-			trueButton = getButtonFromId(selectedAnswer); 	
-			answer = trueButton.getText().toString();
-			GlobalData.setAnimationForButton(this, trueButton);
-		} else {
-			trueButton = getButtonFromId(positionTrueAnswer);
-			falseButton = getButtonFromId(selectedAnswer);			
-			answer = falseButton.getText().toString();
-			GlobalData.setAnimationForButton(this, falseButton, trueButton);
+		if (flagTrue == true && disibleList.contains(getButtonFromId(selectedAnswer)) == false) {
+			Button selected = getButtonFromId(selectedAnswer);
+			selected.setBackgroundResource(R.drawable.btn_answer_background);
+			return;
 		}
 		
-		words.get(count - 1).choose_answer = answer;
-		new Handler().postDelayed(new Runnable() {
+		Button trueButton;
+		Button falseButton;
+		ImageView falseImage;
+		ImageView trueImage;
+		String answer = null;
+		if (selectedAnswer == positionTrueAnswer) {
+			flagTrue = true;
+			
+			trueButton = getButtonFromId(selectedAnswer);
+			trueImage = getImageViewFromId(selectedAnswer);
+			
+			trueButton.setEnabled(false);
+			trueImage.setEnabled(false);
+			
+			disibleList.add(trueButton);
+			
+			answer = trueButton.getText().toString();
+			GlobalData.setAnimationForButton(this, trueButton, true);
+			
+			words.get(count - 1).choose_answer = answer;
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {	
+					// load new question
+					loadNewQuestion();
+				}
+			}, 1000);
+		} else {
+			falseImage = getImageViewFromId(selectedAnswer);
+			falseButton = getButtonFromId(selectedAnswer);		
+			
+			disibleList.add(falseButton);
+			
+			falseButton.setBackgroundColor(Color.RED);
+			falseButton.setEnabled(false);
+			falseImage.setEnabled(false);
+			
+			answer = falseButton.getText().toString();
+			words.get(count - 1).choose_answer = answer;
+			
+		}			
+	}
+	
+	private Dialog createDialogResult() {
+		ContextThemeWrapper wrapper = new ContextThemeWrapper(this, android.R.style.Theme_Holo);
+		LayoutInflater inflater = (LayoutInflater) wrapper.getSystemService(ContextThemeWrapper.LAYOUT_INFLATER_SERVICE);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(wrapper);
+		View view = (View) inflater.inflate(R.layout.common_dialog_game_result, null);
+		alertDialogBuilder.setView(view);
+		alertDialogBuilder.setCancelable(true);
+		alertDialogBuilder.setInverseBackgroundForced(true);		
+		final Dialog alertDialog = alertDialogBuilder.create();
+		alertDialog.setCanceledOnTouchOutside(false);
+		
+		Button btnReLearn = (Button)view.findViewById(R.id.common_dialog_game_result_re_learn);
+		Button btnHome = (Button)view.findViewById(R.id.common_dialog_game_result_home);
+		Button btnShare = (Button)view.findViewById(R.id.common_dialog_game_result_share);
+		
+		btnHome.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
-			public void run() {	
-				// load new question
-				loadNewQuestion();
+			public void onClick(View v) {
+				startActivity(new Intent(SelectPictureActivity.this, MainActivity.class));				
 			}
-		}, 1000);
+		});
+		
+		btnReLearn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(SelectPictureActivity.this, SelectPictureActivity.class));				
+			}
+		});
+
+		btnShare.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+								
+			}
+		});
+		
+		return alertDialog;
 	}
 
 	private void loadNewQuestion() {
 		if (count == GlobalData.TEST_LIMIT) {
 			// show result screen
-			Toast.makeText(getApplicationContext(), "Waitting Final Screen..... :))", Toast.LENGTH_LONG).show();
+			createDialogResult().show();
 			return;
 		}
+		
+		flagTrue = false;
+		
+		disibleList = new ArrayList<Button>();
+		
+		// reset background for all answer buttons
+		resetBackgroundButton();
 		
 		// hide Text recommend
 		hideText(tvRecommend);
@@ -242,6 +319,16 @@ public class SelectPictureActivity extends Activity {
 		btn.setText(text);
 		// text is exist but can not see
 		btn.setTextSize(0);
+	}
+	
+	private void resetBackgroundButton() {
+		for (int i = 1; i <= 4; i++) {
+			Button bt = getButtonFromId(i);
+			ImageView iv = getImageViewFromId(i);
+			bt.setBackgroundResource(R.drawable.btn_answer_background);
+			bt.setEnabled(true);
+			iv.setEnabled(true);
+		}
 	}
 	
 	private Button getButtonFromId(int id){

@@ -120,7 +120,7 @@ public class Exam1Activity extends Activity{
 		if (selectedAnswer == positionTrueAnswer){
 			trueButton = getButtonFromId(selectedAnswer); 
 			answer = trueButton.getText().toString();
-			GlobalData.setAnimationForButton(this, trueButton); // set Animation if correct answer
+			GlobalData.setAnimationForButton(this, trueButton, true); // set Animation if correct answer
 		} else {
 			trueButton = getButtonFromId(positionTrueAnswer);
 			falseButton = getButtonFromId(selectedAnswer);

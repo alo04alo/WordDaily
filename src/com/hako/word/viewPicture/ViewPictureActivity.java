@@ -5,22 +5,34 @@ import java.util.Random;
 
 import com.hako.base.Word;
 import com.hako.base.WordHandle;
+import com.hako.matchword.MatchWordActivity;
+import com.hako.utils.DialogGamesActionListener;
 import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
 import com.hako.word.R;
+import com.hako.word.exam.ExamTabActivity;
+import com.hako.word.selectPicture.SelectPictureActivity;
+import com.hako.word.vocabulary.VocabularyTabBar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ViewPictureActivity extends Activity{
+public class ViewPictureActivity extends Activity implements DialogGamesActionListener {
 	
 	private Button btnAnswer1;
 	private Button btnAnswer2;
@@ -36,6 +48,8 @@ public class ViewPictureActivity extends Activity{
 	private int count = 0;
 	private int positionTrueAnswer;
 	private List<Word> words;
+	
+	AlertDialog dialogGames;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -122,11 +136,14 @@ public class ViewPictureActivity extends Activity{
 			
 			@Override
 			public void onClick(View arg0) {			
-				
+				// show dialog to list other games
+				dialogGames = GlobalData.createDialogGames(ViewPictureActivity.this);
+				dialogGames.show();
 			}
 		});
 
 	}
+		
 
 	protected void loadNewQuestion() {
 		// hide text
@@ -134,9 +151,12 @@ public class ViewPictureActivity extends Activity{
 		
 		if (count == GlobalData.WORD_LIMIT) {
 			// show result screen
-			Toast.makeText(getApplicationContext(), "Waitting final screen here,.....", Toast.LENGTH_LONG).show();
+			createDialogResult().show();
 			return;
 		}
+		
+		// reset all answer buttons
+		resetAnswerButton();
 		
 		Bitmap bitmap = GlobalData.getImageFromRaw(this, words.get(count).romaji);
 		imgWord.setImageBitmap(bitmap);
@@ -185,27 +205,76 @@ public class ViewPictureActivity extends Activity{
 		Button trueButton;
 		Button falseButton;
 		
-		if (selectedAnswer == positionTrueAnswer){
+		if (selectedAnswer == positionTrueAnswer) {
 			trueButton = getButtonFromId(selectedAnswer); 
 			answer = trueButton.getText().toString();
-			GlobalData.setAnimationForButton(this, trueButton);
+			GlobalData.setAnimationForButton(this, trueButton, true);
+			trueButton.setEnabled(false);
+			words.get(count-1).choose_answer = answer;
+			// load new question
+			new Handler().postDelayed(new Runnable() {
+
+				@Override
+				public void run() {	
+					// load new question
+					loadNewQuestion();
+				}
+			}, 1000);			
 		} else {
-			trueButton = getButtonFromId(positionTrueAnswer);
+//			trueButton = getButtonFromId(positionTrueAnswer);
 			falseButton = getButtonFromId(selectedAnswer);
 			answer = falseButton.getText().toString();
-			GlobalData.setAnimationForButton(this, falseButton, trueButton);
-		}
+			GlobalData.setAnimationForButton(this, falseButton, false);
+		}		
+	}
+	
+	private Dialog createDialogResult() {
+		ContextThemeWrapper wrapper = new ContextThemeWrapper(this, android.R.style.Theme_Holo);
+		LayoutInflater inflater = (LayoutInflater) wrapper.getSystemService(ContextThemeWrapper.LAYOUT_INFLATER_SERVICE);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(wrapper);
+		View view = (View) inflater.inflate(R.layout.common_dialog_game_result, null);
+		alertDialogBuilder.setView(view);
+		alertDialogBuilder.setCancelable(true);
+		alertDialogBuilder.setInverseBackgroundForced(true);		
+		final Dialog alertDialog = alertDialogBuilder.create();
+		alertDialog.setCanceledOnTouchOutside(false);
 		
-		words.get(count-1).choose_answer = answer;
+		Button btnReLearn = (Button)view.findViewById(R.id.common_dialog_game_result_re_learn);
+		Button btnHome = (Button)view.findViewById(R.id.common_dialog_game_result_home);
+		Button btnShare = (Button)view.findViewById(R.id.common_dialog_game_result_share);
 		
-		new Handler().postDelayed(new Runnable() {
-
+		btnHome.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
-			public void run() {	
-				// load new question
-				loadNewQuestion();
+			public void onClick(View v) {
+				startActivity(new Intent(ViewPictureActivity.this, MainActivity.class));				
 			}
-		}, 1000);
+		});
+		
+		btnReLearn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(ViewPictureActivity.this, ViewPictureActivity.class));				
+			}
+		});
+
+		btnShare.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+								
+			}
+		});
+		
+		return alertDialog;
+	}
+	
+	private void resetAnswerButton() {
+		for (int i = 1; i <= 4; i++) {
+			Button bt = getButtonFromId(i);			
+			bt.setEnabled(true);			
+		}
 	}
 	
 	private Button getButtonFromId(int id){
@@ -221,6 +290,15 @@ public class ViewPictureActivity extends Activity{
 		default:
 			return null;
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		TextView tv = (TextView) view.findViewById(R.id.common_tv_function);
+		String selected = tv.getText().toString();
+		GlobalData.startGameActivity(ViewPictureActivity.this, selected);
+		dialogGames.cancel();
 	}
 
 }

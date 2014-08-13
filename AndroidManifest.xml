@@ -70,6 +70,10 @@
             android:name="com.hako.word.selectPicture.SelectPictureActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
+        <activity 
+            android:name="com.hako.word.exam.TestResultActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>

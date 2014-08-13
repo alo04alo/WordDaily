@@ -156,4 +156,9 @@
 	<color name="DarkBlue">#00008B</color>
 	<color name="Navy">#000080</color>
 	<color name="Black">#000000</color>
+	<color name="text_choice_test">#ffffffff</color>
+	<color name="text_result">#ff4b4b4b</color>
+	<color name="text_right_answer">#0141FF</color>
+	<color name="line_bottom_list_question">#4F81BD</color>
+	<color name="numOfQuest_Detail">#4F81BD</color>
 </resources>

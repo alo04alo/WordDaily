@@ -9,7 +9,9 @@ import com.hako.utils.GlobalData;
 import com.hako.word.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +30,9 @@ public class Exam1Activity extends Activity{
 	private int count = 0;
 	private int positionTrueAnswer;
 	
+	private CountDownTimer timer;
+	private boolean isCounting = false;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -39,7 +44,9 @@ public class Exam1Activity extends Activity{
 		btnAnswer4 = (Button) findViewById(R.id.exam_1_answer4);
 		
 		tvQuestion = (TextView) findViewById(R.id.exam_1_tvQuesion);
+		
 		words = WordHandle.getRandomListWord(GlobalData.current_lesson, GlobalData.WORD_INCLUDE_IMAGE, GlobalData.TEST_LIMIT);
+		GlobalData.testData = words;
 		
 		loadNewQuestion();
 
@@ -75,13 +82,17 @@ public class Exam1Activity extends Activity{
 			}
 		});
 	}
+	
 	protected void loadNewQuestion() {
 		if (count == GlobalData.TEST_LIMIT) {
 			// show result screen
-			Toast.makeText(getApplicationContext(), "Waitting Final Screen..... :))", Toast.LENGTH_LONG).show();
+			startActivity(new Intent(Exam1Activity.this, TestResultActivity.class));
 			return;
 		}
-		
+		isCounting = false;
+		// reset all answer buttons
+		resetButton();
+		// set text for question textview
 		tvQuestion.setText(words.get(count).mean_vi);
 		// set text for answer buttons
 		setTextForAnswers();
@@ -112,32 +123,27 @@ public class Exam1Activity extends Activity{
 	}
 
 	private void handleAnswer(int selectedAnswer) {		
-		// result = true if the answer is true else false
-		String answer = null;
-		Button trueButton;
-		Button falseButton;
-		
-		if (selectedAnswer == positionTrueAnswer){
-			trueButton = getButtonFromId(selectedAnswer); 
-			answer = trueButton.getText().toString();
-			GlobalData.setAnimationForButton(this, trueButton, true); // set Animation if correct answer
-		} else {
-			trueButton = getButtonFromId(positionTrueAnswer);
-			falseButton = getButtonFromId(selectedAnswer);
-			answer = falseButton.getText().toString();
-			GlobalData.setAnimationForButton(this, falseButton, trueButton); // set Animation if fail answer
+		if (isCounting == false) {
+			timer = new MyCountDownTimer(1000, 100);
+			timer.start();
+			isCounting = true;
 		}
 		
-		words.get(count-1).choose_answer = answer;
+		String answer = null;
+		Button selectedButton;		
+		resetButton();
+		selectedButton = getButtonFromId(selectedAnswer);
+		selectedButton.setBackgroundResource(R.drawable.btn_answer_selected_background);
+		answer = selectedButton.getText().toString();		
 		
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {	
-				// load new question
-				loadNewQuestion();
-			}
-		}, 1000);
+		GlobalData.testData.get(count-1).choose_answer = answer;		
+	}
+	
+	private void resetButton() {
+		for (int i = 1; i <= 4; i++) {
+			Button btn = getButtonFromId(i);
+			btn.setBackgroundResource(R.drawable.btn_answer_background);
+		}
 	}
 	
 	private Button getButtonFromId(int id){
@@ -155,4 +161,19 @@ public class Exam1Activity extends Activity{
 		}
 	}
 	
+	public class MyCountDownTimer extends CountDownTimer {
+		  public MyCountDownTimer(long startTime, long interval) {
+		   super(startTime, interval);
+		  }
+		 
+		  @Override
+		  public void onFinish() {
+			  loadNewQuestion();
+		  }
+		 
+		  @Override
+		  public void onTick(long millisUntilFinished) {
+		  }
+	 }	
 }
+

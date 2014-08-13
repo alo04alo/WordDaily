@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    android:background="@drawable/shape" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+     android:layout_margin="5.0dip"
+  	xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView 
+        android:textSize="17.0sp" 
+        android:textColor="@color/text_choice_test"
+        android:id="@+id/test_result_tvNumof" 
+        android:background="@drawable/shape_answer" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="Q.1" />
+    <LinearLayout 
+        android:orientation="vertical" 
+        android:id="@+id/test_result_layoutText" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginLeft="10.0dip" 
+        android:layout_marginTop="10.0dip" 
+        android:layout_toRightOf="@+id/test_result_tvNumof">
+        <TextView android:textSize="20.0sp" 
+            android:textColor="@color/text_result" 
+            android:id="@+id/test_result_tv_question" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:text="Question" />
+        <LinearLayout 
+            android:orientation="horizontal" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_marginBottom="5.0dip">
+            <ImageView 
+                android:id="@+id/test_result_imageView1" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:src="@drawable/ico_person" />
+            <TextView 
+                android:textSize="15.0sp" 
+                android:textColor="@color/text_result" 
+                android:id="@+id/test_result_tv_user_choice" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_marginLeft="5.0dip" 
+                android:layout_marginTop="3.0dip" 
+                android:text="Kanji_Word" />
+        </LinearLayout>
+        <LinearLayout 
+            android:orientation="horizontal"
+             android:layout_width="wrap_content" 
+             android:layout_height="wrap_content">
+            <ImageView 
+                android:id="@+id/test_result_imageView2" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:src="@drawable/ico_check_small" />
+            <TextView 
+                android:textSize="15.0sp" 
+                android:textColor="@color/text_right_answer" 
+                android:id="@+id/test_result_tv_right_answer" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_marginLeft="5.0dip" 
+                android:layout_marginTop="3.0dip" 
+                android:text="RightAnswer" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView 
+        android:id="@+id/test_result_img_result" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10.0dip" 
+        android:src="@drawable/ico_true" 
+        android:layout_alignParentRight="true" 
+        android:layout_centerVertical="true" 
+        android:contentDescription="Setting" />
+    <View 
+        android:background="@color/line_bottom_list_question" 
+        android:layout_width="fill_parent" 
+        android:layout_height="3.0dip" 
+        android:layout_marginTop="10.0dip" 
+        android:layout_below="@+id/test_result_layoutText" />
+</RelativeLayout>

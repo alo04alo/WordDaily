@@ -48,7 +48,7 @@ public class ExamTabActivity extends TabActivity implements OnTabChangeListener{
             View view = tabHost.getTabWidget().getChildTabViewAt(i);
             if ( view != null ) {
                 // reduce height of the tab
-                view.getLayoutParams().height *= 1.16;
+                view.getLayoutParams().height *= 0.9;
                 view.setBackgroundColor(Color.parseColor(GlobalData.COLOR_BACKGROUND_TAB_BAR));
                 //  get title text view
                 View textView = view.findViewById(android.R.id.title);
@@ -60,7 +60,7 @@ public class ExamTabActivity extends TabActivity implements OnTabChangeListener{
                     // wrap text
                     ((TextView) textView).setSingleLine(false);
                     ((TextView) textView).setTextColor(Color.parseColor("#ffffff"));
-                    ((TextView) textView).setTextSize(20);
+                    ((TextView) textView).setTextSize(18);
 
                     // explicitly set layout parameters
                     textView.getLayoutParams().height = ViewGroup.LayoutParams.FILL_PARENT;

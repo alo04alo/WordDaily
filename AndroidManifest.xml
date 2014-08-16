@@ -43,7 +43,6 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:theme="@style/Theme.AppCompat.Light"
             android:name="com.hako.matchword.MatchWordActivity" >
         </activity>
         <activity 

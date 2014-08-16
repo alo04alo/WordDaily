@@ -7,7 +7,7 @@
         android:state_focused="false"
         android:state_pressed="true" 
         />
-    <item android:drawable="@drawable/vocabulary_press"
+    <item android:drawable="@drawable/vocabulary_normal"
         android:state_focused="false"
         android:state_pressed="false"/>
 </selector>

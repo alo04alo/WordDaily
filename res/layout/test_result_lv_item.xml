@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_marginLeft="5.0dip" 
+                android:layout_marginRight="70px"
                 android:layout_marginTop="3.0dip" 
                 android:text="Kanji_Word" />
         </LinearLayout>
@@ -63,6 +64,7 @@
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:layout_marginLeft="5.0dip" 
+                android:layout_marginRight="70px"
                 android:layout_marginTop="3.0dip" 
                 android:text="RightAnswer" />
         </LinearLayout>

@@ -46,6 +46,7 @@ public class Exam1Activity extends Activity{
 		tvQuestion = (TextView) findViewById(R.id.exam_1_tvQuesion);
 		
 		words = WordHandle.getRandomListWord(GlobalData.current_lesson, GlobalData.WORD_INCLUDE_IMAGE, GlobalData.TEST_LIMIT);
+		GlobalData.currentExam = 1;
 		GlobalData.testData = words;
 		
 		loadNewQuestion();

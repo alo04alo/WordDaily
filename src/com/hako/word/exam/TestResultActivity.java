@@ -35,13 +35,22 @@ public class TestResultActivity extends Activity{
 		selectedAnsers = new String[data.size()];
 		
 		for (int index = 0; index < data.size(); index++) {
-			questions[index] = data.get(index).mean_vi;
-			rightAnswers[index] = data.get(index).hiragana;
-			selectedAnsers[index] = data.get(index).choose_answer;
+			if (GlobalData.currentExam == 1) {
+				questions[index] = data.get(index).mean_vi;
+				rightAnswers[index] = data.get(index).hiragana;
+				if (data.get(index).hiragana == data.get(index).choose_answer) {
+					score += 1;
+				}
+			} else if (GlobalData.currentExam == 3) {
+				questions[index] = data.get(index).hiragana;
+				rightAnswers[index] = data.get(index).mean_vi;
+				if (data.get(index).mean_vi == data.get(index).choose_answer) {
+					score += 1;
+				}
+			}			
 			
-			if (data.get(index).hiragana == data.get(index).choose_answer) {
-				score += 1;
-			}
+			selectedAnsers[index] = data.get(index).choose_answer;
+						
 			
 		}
 		

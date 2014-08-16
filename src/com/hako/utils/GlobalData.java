@@ -46,6 +46,7 @@ public class GlobalData {
 	public static DatabaseHandler db;	
 	public static String[] allFunctions = {"Từ vựng", "Khớp từ", "Chọn tranh", "Nghe từ", "Xem tranh", "Kiểm tra"};
 	public static int current_lesson;	
+	public static int currentExam = 1;
 	
 	public static  List<Word> testData;
 	

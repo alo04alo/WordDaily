@@ -132,7 +132,7 @@ public class SubLesson extends Activity {
 			
 			@Override
 			public void onClick(View arg0) {
-				if (checkEnableLesson() == true) {
+				if (GlobalData.checkEnableLesson() == true) {
 					startActivity(new Intent(getApplicationContext(), VocabularyTabBar.class));
 				} else {
 					// show dialog to require testing 
@@ -160,7 +160,7 @@ public class SubLesson extends Activity {
 			
 			@Override
 			public void onClick(View arg0) {
-				if (checkEnableLesson() == true) {
+				if (GlobalData.checkEnableLesson() == true) {
 					startActivity(new Intent(getApplicationContext(), ViewPictureActivity.class));
 				} else {
 					// show dialog to require testing 
@@ -183,7 +183,7 @@ public class SubLesson extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				if (checkEnableLesson() == true) {
+				if (GlobalData.checkEnableLesson() == true) {
 					startActivity(new Intent(getApplicationContext(), ExamTabActivity.class));
 				} else {
 					// show dialog to require testing 
@@ -273,18 +273,6 @@ public class SubLesson extends Activity {
         });
         
 		return alertDialog;
-	}
-
-	protected Boolean checkEnableLesson() {
-		Lesson lesson = lessons.get(GlobalData.current_lesson - 1);
-		if (GlobalData.current_lesson == 1) {
-			return true;
-		} 
-		else if (lesson.is_lock == 1) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 }

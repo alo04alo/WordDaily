@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
@@ -171,7 +172,7 @@ public class GlobalData {
 		if (drawable instanceof BitmapDrawable) {
 	        return ((BitmapDrawable)drawable).getBitmap();
 	    }
-
+		
 	    Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Config.ARGB_8888);
 	    Canvas canvas = new Canvas(bitmap); 
 	    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -271,5 +272,16 @@ public class GlobalData {
 			context.startActivity(new Intent(context, ExamTabActivity.class));
 		}
 	}
+	
+	public static <T> void fillArray(T[] array, T obj) {
+		for (int i = 0; i < array.length; i++) {
+			array[i] = obj;
+		}
+	}
 
+	public static <T> void fillList(List<T> list, T obj, int len) {
+		for (int i = 0; i < len; i++) {
+			list.add(obj);
+		}
+	}
 }

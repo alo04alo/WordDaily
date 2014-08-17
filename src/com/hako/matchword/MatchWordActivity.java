@@ -36,83 +36,86 @@ public class MatchWordActivity extends ActionBarActivity {
 	private static final int MAX_WORD_SHOW = 6; 
 	private static final int MAX_HEART = 3;
 	private static final int MAX_CHAR_IN_WORD = 50;
+	private static final long TIMER_LONG = 240000;
+	private static final long TIMER_DELAY = 1000;
 	
-	private ArrayAdapter<String> adapter_viet;
-	private ArrayAdapter<String> adapter_japan;
-	private ListView listView_viet;
-	private	ListView listView_japan;
+	private ListView listView_vie;
+	private	ListView listView_jp;
 	private TextView tvClock;
 	
-	private List<Word> listWord;
-	int[] selected_japan, selected_viet;
-	List<Integer> unselect_japan, unselect_viet;
+	private ArrayAdapter<String> mAdapter_vie;
+	private ArrayAdapter<String> mAdapter_jp;
+	
+	private List<Word> mWordList;
+	int[] mSelected_jp, mSelected_vie;
+	List<Integer> mUnselected_jp, mUnselected_vie;
 	
 	private int mHeartRemain;
 	private int mAnswerCorrect;
 	
-	private Random random;
+	private Random mRandom;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_match_word);
-
-		random = new Random();
+		
+		mRandom = new Random();
 		mHeartRemain = MAX_HEART;
 		mAnswerCorrect = 0;
 		
-		unselect_japan = new ArrayList<Integer>();
-		unselect_viet = new ArrayList<Integer>();
+		mUnselected_jp = new ArrayList<Integer>();
+		mUnselected_vie = new ArrayList<Integer>();
 		for (int i = 0; i < MAX_WORD; i++) {
-			unselect_japan.add(i);
-			unselect_viet.add(i);
+			mUnselected_jp.add(i);
+			mUnselected_vie.add(i);
 		}
 		
-		selected_japan = new int[MAX_WORD_SHOW];
-		selected_viet = new int[MAX_WORD_SHOW];
+		mSelected_jp = new int[MAX_WORD_SHOW];
+		mSelected_vie = new int[MAX_WORD_SHOW];
 		for (int i = 0; i < MAX_WORD_SHOW; i++) {
-			selected_japan[i] = -1;
-			selected_viet[i] = -1;
+			mSelected_jp[i] = -1;
+			mSelected_vie[i] = -1;
 		}
 		
 		tvClock = (TextView) findViewById(R.id.matchword_tv_timer);
 		
-		adapter_japan = new ArrayAdapter<String>(this, R.layout.matchword_list_item);
-		listView_japan = (ListView) findViewById(R.id.matchword_list_jpan);
-		listView_japan.setAdapter(adapter_japan);
-		listView_japan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		mAdapter_jp = new ArrayAdapter<String>(this, R.layout.matchword_list_item);
+		listView_jp = (ListView) findViewById(R.id.matchword_list_jpan);
+		listView_jp.setAdapter(mAdapter_jp);
+		listView_jp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view, 
 					int position, long id) {
-				if (!adapter_japan.getItem(position).isEmpty()) {
+				if (!mAdapter_jp.getItem(position).isEmpty()) {
 					checkAnswerCorrect();
 				} else {
-					listView_japan.setItemChecked(-1, true);
+					listView_jp.setItemChecked(-1, true);
 				}
-				updateListViewHightlight(listView_japan);
+				updateListViewHightlight(listView_jp);
 			}
 		});
 		
-		adapter_viet = new ArrayAdapter<String>(this, R.layout.matchword_list_item);
-		listView_viet = (ListView) findViewById(R.id.matchword_list_vie);
-		listView_viet.setAdapter(adapter_viet);
-		listView_viet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		mAdapter_vie = new ArrayAdapter<String>(this, R.layout.matchword_list_item);
+		listView_vie = (ListView) findViewById(R.id.matchword_list_vie);
+		listView_vie.setAdapter(mAdapter_vie);
+		listView_vie.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			
 			public void onItemClick(AdapterView<?> parent, View view, 
 					int position, long id) {
-				if (!adapter_viet.getItem(position).isEmpty()) {
+				if (!mAdapter_vie.getItem(position).isEmpty()) {
 					checkAnswerCorrect();
 				} else {
-					listView_viet.setItemChecked(-1, true);
+					listView_vie.setItemChecked(-1, true);
 				}
-				updateListViewHightlight(listView_viet);
+				updateListViewHightlight(listView_vie);
 			}
 		});
 		
 		initListWord();
 		initListViewValues();
 		
-		new CountDownTimer(240000, 1000) {
+		new CountDownTimer(TIMER_LONG, TIMER_DELAY) {
 
 			public void onTick(long millisUntilFinished) {
 				int timeRemain = (int)(millisUntilFinished / 1000);
@@ -158,44 +161,44 @@ public class MatchWordActivity extends ActionBarActivity {
 	 * 			
 	 */
 	private void checkAnswerCorrect() {
-		int jpanIndex = listView_japan.getCheckedItemPosition();
-		int vieIndex = listView_viet.getCheckedItemPosition();
+		int jpanIndex = listView_jp.getCheckedItemPosition();
+		int vieIndex = listView_vie.getCheckedItemPosition();
 		
 		if (jpanIndex == ListView.INVALID_POSITION 
 				|| vieIndex == ListView.INVALID_POSITION) {
 			Debug.out("invalid item selected, return");
 			return;
 		} else {
-			listView_japan.setItemChecked(-1, true);
-			listView_viet.setItemChecked(-1, true);
+			listView_jp.setItemChecked(-1, true);
+			listView_vie.setItemChecked(-1, true);
 			
-			updateListViewHightlight(listView_viet);
-			updateListViewHightlight(listView_japan);
+			updateListViewHightlight(listView_vie);
+			updateListViewHightlight(listView_jp);
 		}
 		
-		if (selected_japan[jpanIndex] == selected_viet[vieIndex]) {
+		if (mSelected_jp[jpanIndex] == mSelected_vie[vieIndex]) {
 			// check if all words matched, win game
 			if (++mAnswerCorrect >= MAX_WORD) {
 				gameOver();
 			}
 			
-			selected_japan[jpanIndex] = getSingleRandomItem(unselect_japan);
-			selected_viet[vieIndex] = getSingleRandomItem(unselect_viet);
+			mSelected_jp[jpanIndex] = getSingleRandomItem(mUnselected_jp);
+			mSelected_vie[vieIndex] = getSingleRandomItem(mUnselected_vie);
 			
 			String newJpanItem = "";
 			String newVieItem = "";
-			if (selected_viet[vieIndex] != -1) {
+			if (mSelected_vie[vieIndex] != -1) {
 				if (!hasAtLeastOnePairMatch()) {
-					int src = random.nextInt(MAX_WORD_SHOW);
-					unselect_viet.add(selected_viet[vieIndex]);
-					selected_viet[vieIndex] = selected_japan[src];
+					int src = mRandom.nextInt(MAX_WORD_SHOW);
+					mUnselected_vie.add(mSelected_vie[vieIndex]);
+					mSelected_vie[vieIndex] = mSelected_jp[src];
 				}
-				newJpanItem = listWord.get(selected_japan[jpanIndex]).hiragana;
-				newVieItem = listWord.get(selected_viet[vieIndex]).mean_vi;
+				newJpanItem = mWordList.get(mSelected_jp[jpanIndex]).hiragana;
+				newVieItem = mWordList.get(mSelected_vie[vieIndex]).mean_vi;
 			}
 			
-			updateAdapter(adapter_japan, newJpanItem, jpanIndex);
-			updateAdapter(adapter_viet, newVieItem, vieIndex);
+			updateAdapter(mAdapter_jp, newJpanItem, jpanIndex);
+			updateAdapter(mAdapter_vie, newVieItem, vieIndex);
 		}
 		else {
 			destroyAHeart();
@@ -211,7 +214,7 @@ public class MatchWordActivity extends ActionBarActivity {
 	private void initListWord() {
 		List<Word> allWords = WordHandle.getListWord(1);
 		List<Word> removeWords = new ArrayList<Word>();
-		listWord = new ArrayList<Word>();
+		mWordList = new ArrayList<Word>();
 		for (Word w : allWords) {
 			if (w.mean_vi.length() > MAX_CHAR_IN_WORD) {
 				removeWords.add(w);
@@ -221,8 +224,8 @@ public class MatchWordActivity extends ActionBarActivity {
 			allWords.remove(w);
 		}
 		for (int i = 0; i < MAX_WORD; i++) {
-			int pos = random.nextInt(allWords.size());
-			listWord.add(allWords.get(pos));
+			int pos = mRandom.nextInt(allWords.size());
+			mWordList.add(allWords.get(pos));
 			allWords.remove(pos);
 		}
 	}
@@ -231,23 +234,23 @@ public class MatchWordActivity extends ActionBarActivity {
 	 * set start values for two listviews
 	 */
 	private void initListViewValues() {
-		getMultiRandomItems(unselect_japan, selected_japan);
-		for (int index : selected_japan) {
+		getMultiRandomItems(mUnselected_jp, mSelected_jp);
+		for (int index : mSelected_jp) {
 			if (index < 0) continue;
-			adapter_japan.add(listWord.get(index).hiragana);
+			mAdapter_jp.add(mWordList.get(index).hiragana);
 		}
 		
-		getMultiRandomItems(unselect_viet, selected_viet);
+		getMultiRandomItems(mUnselected_vie, mSelected_vie);
 		if (!hasAtLeastOnePairMatch()) {
-			int src = random.nextInt(MAX_WORD_SHOW);
-			int target = random.nextInt(MAX_WORD_SHOW);
+			int src = mRandom.nextInt(MAX_WORD_SHOW);
+			int target = mRandom.nextInt(MAX_WORD_SHOW);
 			
-			unselect_viet.add(selected_viet[target]);
-			selected_viet[target] = selected_japan[src];
+			mUnselected_vie.add(mSelected_vie[target]);
+			mSelected_vie[target] = mSelected_jp[src];
 		}
-		for (int index : selected_viet) {
+		for (int index : mSelected_vie) {
 			if (index < 0) continue;
-			adapter_viet.add(listWord.get(index).mean_vi);
+			mAdapter_vie.add(mWordList.get(index).mean_vi);
 		}
 	}
 
@@ -281,9 +284,9 @@ public class MatchWordActivity extends ActionBarActivity {
 	 * @return
 	 */
 	private boolean hasAtLeastOnePairMatch() {
-		for (int i = 0; i < selected_japan.length; i++) {
-			for (int j = 0; j < selected_viet.length; j++) {
-				if (selected_japan[i] == selected_viet[j]) {
+		for (int i = 0; i < mSelected_jp.length; i++) {
+			for (int j = 0; j < mSelected_vie.length; j++) {
+				if (mSelected_jp[i] == mSelected_vie[j]) {
 					Debug.out(i + "=" + j);
 					return true;
 				}
@@ -314,7 +317,7 @@ public class MatchWordActivity extends ActionBarActivity {
 			list.remove(0);
 			return index;
 		} else {
-			int location = random.nextInt(list.size());
+			int location = mRandom.nextInt(list.size());
 			int index =  list.get(location);
 			list.remove(location);
 			return index;

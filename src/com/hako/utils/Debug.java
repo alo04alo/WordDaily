@@ -9,4 +9,9 @@ public final class Debug {
 	public static void out(Object msg) {
 		Log.i("info", msg.toString());
 	}
+	
+	public static void log(Object msg) {
+		// red for clear =))
+		Log.e("nhatanh-log", msg.toString());
+	}
 }

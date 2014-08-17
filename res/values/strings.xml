@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="matchword_timer_default_text">4:00</string>
     <string name="exam">Kiểm tra</string>
+    <string name="title_activity_listen_write">ListenWriteActivity</string>
 
 </resources>

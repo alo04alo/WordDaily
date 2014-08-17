@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<color name="item_selected">#FE9A1E</color>
-	<color name="item_border">#4fa5d5</color>
+	<color name="item_border">#1F497D</color>
+	<color name="item_text">#ff29549f</color>
 </resources>

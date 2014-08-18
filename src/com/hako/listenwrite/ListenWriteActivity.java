@@ -1,15 +1,16 @@
 package com.hako.listenwrite;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.TimerTask;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,7 +145,14 @@ public class ListenWriteActivity extends ActionBarActivity {
 				mAnswers[position] = -1;
 				mAnswerCorrect ++;
 				if (mAnswerCorrect >= tvResult.getText().length()) {
-					nextWordWithDelay(DELAY_BEFORE_NEXT_WORD);
+					new Handler().postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							nextWord();
+						}
+					}, DELAY_BEFORE_NEXT_WORD);
 				}
 			}
 		});
@@ -163,16 +171,26 @@ public class ListenWriteActivity extends ActionBarActivity {
 					if (mAnswers[i] < 0) continue;
 					if (mAnswers[i] < min) {
 						min = mAnswers[i];
-						text = adapter.getItem(mAnswers[i]);
+						text = adapter.getItem(i);
 						minIndex = i;
 					}
 				}
+				
+				if (minIndex < 0) return;
+				
 				mAnswerCorrect ++;
 				mAnswers[minIndex] = -1;
 				updateAnswerTextView(text.charAt(0), min);
 				
 				if (mAnswerCorrect >= tvResult.getText().length()) {
-					nextWordWithDelay(DELAY_BEFORE_NEXT_WORD);
+					new Handler().postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							nextWord();
+						}
+					}, DELAY_BEFORE_NEXT_WORD);
 				}
 			}
 		});
@@ -215,9 +233,11 @@ public class ListenWriteActivity extends ActionBarActivity {
 		for (int i = 0; i < MAX_ANSWER; i++) {
 			producers.add(i);
 		}
-
+		
 		final Word currentWord = mWordList.get(++mWordIndex);
 		final char[] hiragana = currentWord.hiragana.toCharArray();
+		Debug.log(currentWord.hiragana);
+		
 		for (int i = 0; i < hiragana.length; i++) {
 			final int index = random.nextInt(producers.size());			
 			mAnswers[producers.get(index)] = i;
@@ -225,11 +245,20 @@ public class ListenWriteActivity extends ActionBarActivity {
 			tvResult.append("_");
 		}
 
-		final int maxChars = GlobalData.charArray.length;
+		List<Character> charList = new ArrayList<Character>();
+		for (char character : GlobalData.charArray) {
+			if (currentWord.hiragana.contains(Character.toString(character))) {
+				// ignore character that exist in result string
+				continue;
+			}
+			charList.add(character);
+		}
+		
 		for (int i = 0; i < mAnswers.length; i++) {
 			if (mAnswers[i] < 0) {
-				int index = random.nextInt(maxChars);
-				adapter.add(Character.toString(GlobalData.charArray[index]));
+				int index = random.nextInt(charList.size());
+				adapter.add(Character.toString(charList.get(index)));
+				charList.remove(index);
 			} else {
 				adapter.add(Character.toString(hiragana[mAnswers[i]]));
 			}
@@ -239,37 +268,6 @@ public class ListenWriteActivity extends ActionBarActivity {
 		task.execute(currentWord.romaji);		
 	}
 
-	/**
-	 * 
-	 * @param delay
-	 * @param interval
-	 */
-	private void nextWordWithDelay(long delay, long interval) {
-		new CountDownTimer(delay, interval) {
-
-			@Override
-			public void onFinish() {
-				// TODO Auto-generated method stub
-				nextWord();
-			}
-
-			@Override
-			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		}.start();
-	}
-	
-	/**
-	 * an overload method of nextWordWithDelay with interval = 1/2 delay
-	 * @param delay
-	 */
-	private void nextWordWithDelay(long delay) {
-		nextWordWithDelay(delay, delay / 2);
-	}
-	
 	/**
 	 * 
 	 */

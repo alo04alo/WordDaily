@@ -31,9 +31,13 @@
             android:gravity="center_horizontal"
             android:text="5 / 20"/>
         <RatingBar 
+            android:id="@+id/test_result_rb_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:clickable="false"
+            android:focusable="false"
+            android:isIndicator="true"
             android:numStars="3"/>
     </LinearLayout>
     <View 

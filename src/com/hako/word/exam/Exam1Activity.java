@@ -20,6 +20,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class Exam1Activity extends Activity {
@@ -28,8 +32,16 @@ public class Exam1Activity extends Activity {
 	private Button btnAnswer2;
 	private Button btnAnswer3;
 	private Button btnAnswer4;
+	private Button btnReplay;
+	
 	private TextView tvQuestion;
 	private TextView tvTimer;
+	private TextView tvScore;
+	private ListView lvResultDetail;
+	private RatingBar rbStar;
+	
+	private RelativeLayout rlTestPart;
+	private RelativeLayout rlResultPart;
 	
 	private List<Word> words;
 	private int count = 0;
@@ -41,6 +53,12 @@ public class Exam1Activity extends Activity {
 	private int totalTestTime = 180000;
 	private boolean isPaused = false;
 	
+	private String[] questions;
+	private String[] rightAnswers;
+	private String[] selectedAnsers;
+	private List<Word> data;
+	private int score = 0;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,9 +68,18 @@ public class Exam1Activity extends Activity {
 		btnAnswer2 = (Button) findViewById(R.id.exam_1_answer2);
 		btnAnswer3 = (Button) findViewById(R.id.exam_1_answer3);
 		btnAnswer4 = (Button) findViewById(R.id.exam_1_answer4);
+		btnReplay = (Button) findViewById(R.id.exam_1_bt_replay);
 		
 		tvQuestion = (TextView) findViewById(R.id.exam_1_tvQuesion);
 		tvTimer = (TextView) findViewById(R.id.exam_1_timer);
+		tvScore = (TextView) findViewById(R.id.exam_1_tv_score);
+		
+		lvResultDetail = (ListView) findViewById(R.id.exam_1_lv_detail_result);
+		
+		rbStar = (RatingBar) findViewById(R.id.exam_1_rb_star);
+		
+		rlTestPart = (RelativeLayout) findViewById(R.id.exam_1_test_screen);
+		rlResultPart = (RelativeLayout) findViewById(R.id.exam_1_result_screen);
 		
 		words = WordHandle.getRandomListWord(GlobalData.current_lesson, GlobalData.WORD_INCLUDE_IMAGE, GlobalData.TEST_LIMIT);
 		GlobalData.currentExam = 1;
@@ -105,12 +132,35 @@ public class Exam1Activity extends Activity {
 				handleAnswer(4);
 			}
 		});
+		
+		btnReplay.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {				
+				rlTestPart.setVisibility(View.VISIBLE);
+				rlResultPart.setVisibility(View.INVISIBLE);
+				tvTimer.setText("03:00");
+				
+				count = 0;
+				score = 0;
+				words = WordHandle.getRandomListWord(GlobalData.current_lesson, GlobalData.WORD_INCLUDE_IMAGE, GlobalData.TEST_LIMIT);
+				GlobalData.currentExam = 1;
+				GlobalData.testData = words;			
+				examTimer =  createTimer(totalTestTime, false);
+				examTimer.pause();		
+				
+				loadNewQuestion();
+				
+			}
+		});
 	}
 				
 
 	@Override
 	public void onBackPressed() {
+		
 		examTimer.pause();
+		
 		AlertDialog.Builder al = new AlertDialog.Builder(this)	
 			.setTitle("Are you sure finish test ?")
 			.setIcon(R.drawable.ico_warning)		
@@ -129,6 +179,7 @@ public class Exam1Activity extends Activity {
 					examTimer.resume();
 				}
 		});
+		
 		Dialog dialog = al.create();
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.setCancelable(false);
@@ -138,11 +189,15 @@ public class Exam1Activity extends Activity {
 
 
 	protected void loadNewQuestion() {
+		
 		if (count == GlobalData.TEST_LIMIT) {
+			// cancel timer
+			examTimer.cancel();
 			// show result screen
-			startActivity(new Intent(Exam1Activity.this, TestResultActivity.class));
+			showResultTest();
 			return;
 		}
+		
 		isCounting = false;
 		// reset all answer buttons
 		resetButton();
@@ -191,6 +246,47 @@ public class Exam1Activity extends Activity {
 		answer = selectedButton.getText().toString();		
 		
 		GlobalData.testData.get(count-1).choose_answer = answer;		
+	}
+	
+	private void showResultTest() {
+		
+		rlTestPart.setVisibility(View.INVISIBLE);
+		rlResultPart.setVisibility(View.VISIBLE);
+		
+		data = GlobalData.testData;
+		questions = new String[data.size()];
+		rightAnswers = new String[data.size()];
+		selectedAnsers = new String[data.size()];
+		
+		for (int index = 0; index < data.size(); index++) {
+			if (GlobalData.currentExam == 1) {
+				questions[index] = data.get(index).mean_vi;
+				rightAnswers[index] = data.get(index).hiragana;
+				if (data.get(index).hiragana == data.get(index).choose_answer) {
+					score += 1;
+				}
+			} else if (GlobalData.currentExam == 3) {
+				questions[index] = data.get(index).hiragana;
+				rightAnswers[index] = data.get(index).mean_vi;
+				if (data.get(index).mean_vi == data.get(index).choose_answer) {
+					score += 1;
+				}
+			}			
+			
+			selectedAnsers[index] = data.get(index).choose_answer;									
+		}
+		
+		// set value for ratingbar	
+		if ((score % 5) == 0) {
+			rbStar.setRating(score / 5);
+		} else {
+			rbStar.setRating((int)(score / 5) + 1);
+		}		
+		
+		// display score
+		tvScore.setText(score + " / " + data.size());
+		
+		lvResultDetail.setAdapter(new TestResultAdapter(this, questions, rightAnswers, selectedAnsers));
 	}
 	
 	private void resetButton() {
@@ -245,7 +341,7 @@ public class Exam1Activity extends Activity {
 	        }
 	        
 	        public void onFinish() {
-	          startActivity(new Intent(Exam1Activity.this, TestResultActivity.class));
+	        	showResultTest();
 	        }
         }.create();
     }

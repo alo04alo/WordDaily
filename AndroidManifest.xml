@@ -5,8 +5,9 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="19" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -43,32 +44,36 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.hako.matchword.MatchWordActivity" 
-            android:theme="@style/Theme.AppCompat.Light">
+            android:name="com.hako.matchword.MatchWordActivity"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
-        <activity 
-            android:name="com.hako.word.exam.ExamTabActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".exam.ExamTabActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.exam.Exam1Activity"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".exam.Exam1Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.exam.Exam2Activity"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".exam.Exam2Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.exam.Exam3Activity"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".exam.Exam3Activity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.viewPicture.ViewPictureActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".viewPicture.ViewPictureActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity 
-            android:name="com.hako.word.selectPicture.SelectPictureActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+        <activity
+            android:name=".selectPicture.SelectPictureActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.hako.listenwrite.ListenWriteActivity"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity 
             android:name="com.hako.word.exam.TestResultActivity"

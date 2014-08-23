@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hako.base.DatabaseHandler;
 import com.hako.base.Lesson;
+import com.hako.listenwrite.ListenWriteActivity;
 import com.hako.matchword.MatchWordActivity;
 import com.hako.utils.GlobalData;
 import com.hako.word.MainActivity;
@@ -142,11 +143,10 @@ public class SubLesson extends Activity {
 				}				
 			}
 		});
+
+		/////////////////////////////////////////
+		// author: nhat anh
 		
-		/**
-		 * author:nhat anh
-		 * start MatchWordActivity
-		 */
 		btnMatchWord.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -155,6 +155,17 @@ public class SubLesson extends Activity {
 				startActivity(new Intent(SubLesson.this, MatchWordActivity.class));
 			}
 		});
+		
+		btnListenWord.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				startActivity(new Intent(SubLesson.this, ListenWriteActivity.class));
+			}
+		});
+		
+		//////////////////////////////////////////
 		
 		btnViewPicture.setOnClickListener(new View.OnClickListener() {
 			

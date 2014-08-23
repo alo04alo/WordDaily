@@ -17,23 +17,17 @@
    	    android:layout_height="wrap_content">
    	    <ImageView 
    	        android:id="@+id/matchword_ivheart1"
-   	        android:src="@drawable/heart"   	        
-   	        android:layout_width="30dp"
-   	        android:layout_height="30dp"/>
+   	        style="@style/MatchWordHeartImage" />
    	    <ImageView    	        
    	        android:id="@+id/matchword_ivheart2"
-   	        android:src="@drawable/heart"
+   	        style="@style/MatchWordHeartImage"
    	        android:layout_toRightOf="@id/matchword_ivheart1"
-   	        android:layout_marginLeft="5dp"
-   	        android:layout_width="30dp"
-   	        android:layout_height="30dp"/>
+   	        android:layout_marginLeft="5dp"/>
    	    <ImageView 
    	        android:id="@+id/matchword_ivheart3"
-   	        android:src="@drawable/heart"
+   	        style="@style/MatchWordHeartImage"
    	        android:layout_toRightOf="@id/matchword_ivheart2"
-   	        android:layout_marginLeft="5dp"
-   	        android:layout_width="30dp"
-   	        android:layout_height="30dp"/>
+   	        android:layout_marginLeft="5dp" />
    	    
    	    <TextView android:id="@+id/matchword_tv_timer"
    	        android:text="@string/matchword_timer_default_text"
@@ -56,23 +50,11 @@
    	    android:layout_height="match_parent">
 		<ListView 
 		    android:id="@+id/matchword_list_jpan"
-		    android:choiceMode="singleChoice"
-		    android:listSelector="@drawable/matchword_item_selector"
-		    android:divider="@android:color/transparent"
-		    android:dividerHeight="15dp"
-		    android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="20dp"	 
-			android:layout_weight="1" />
-		<ListView 
+		    style="@style/MatchWordListView" 
+		    android:layout_marginRight="20dp" />
+		<ListView
 		    android:id="@+id/matchword_list_vie"
-			android:choiceMode="singleChoice"
-		    android:listSelector="@drawable/matchword_item_selector"
-		    android:divider="@android:color/transparent"
-		    android:dividerHeight="15dp"
-		    android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1" />
+		    style="@style/MatchWordListView" /> 
    	</LinearLayout>
 
 </RelativeLayout>

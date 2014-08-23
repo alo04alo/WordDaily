@@ -67,6 +67,13 @@ public class GlobalData {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param min
+	 * @param max
+	 * @param ignore
+	 * @return
+	 */
 	public static int[] getRandomThreeNumber(int min, int max, int ignore) {			
 
 		int[]  number = new int[3];

@@ -6,7 +6,27 @@
         res/values-v11/styles.xml on API 14+ devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- API 14 theme customizations can go here. -->
+    </style>
+	
+    <style name="Theme.ActionBar" parent="@style/Theme.AppCompat.Light">
+	    <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+		<item name="android:titleTextStyle">@style/TitleTextStyle</item>
+	</style>
+	
+	<style name="ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar">
+	    <!-- Setting values in the android namespace affects API levels 14+ -->
+	    <item name="android:background">#486493</item>
+	
+	</style>
+	
+	<!-- action bar title text -->
+    <style name="TitleTextStyle" parent="@android:style/TextAppearance.StatusBar.Title">
+        <item name="android:textColor">#486493</item>
     </style>
 
+    <!-- action bar tab text -->
+    <style name="TabTextStyle"
+           parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:textColor">#ffffff</item>
+    </style>
 </resources>

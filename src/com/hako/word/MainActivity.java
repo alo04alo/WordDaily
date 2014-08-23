@@ -9,7 +9,6 @@ import com.hako.utils.GlobalData;
 import com.hako.word.R;
 import com.hako.word.exam.ExamTabActivity;
 import com.hako.word.lesson.SubLesson;
-import com.hako.word.vocabulary.VocabularyTabBar;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,15 +17,16 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.view.View;
 
@@ -40,6 +40,10 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+//		requestWindowFeature(Window.FEATURE_PROGRESS);
+//		requestWindowFeature(Window.PROGRESS_VISIBILITY_ON);
+//		supportRequestWindowFeature(Window.PROGRESS_VISIBILITY_ON);
+		
 		setContentView(R.layout.activity_main);
 		// open database and save db in GlobalData.
 		db = GlobalData.openDatabase(this); 		
@@ -72,7 +76,6 @@ public class MainActivity extends Activity {
 					// show dialog to require testing 
 					dialogRequireTest = createDialogRequireTest();
 					dialogRequireTest.show();
-					
 				}
             }
         });

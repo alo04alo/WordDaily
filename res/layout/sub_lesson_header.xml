@@ -20,11 +20,6 @@
        android:layout_height="60dp"
        android:gravity="center_horizontal">
 	   <Button 
-	       android:id="@+id/btn_previous"
-	       style="@style/DashboardButton"
-	       android:layout_marginBottom="-10dp"
-	       android:drawableTop="@drawable/btn_previous"/>
-	   <Button 
 	       android:id="@+id/btn_down"        
 	       style="@style/DashboardButton"
 	       android:layout_marginLeft="5dp"        
@@ -33,11 +28,5 @@
 	       android:textStyle="bold"
 	       android:gravity="left|center_vertical"
 	       android:text="Bài 1"/>
-	   <Button 
-	       android:id="@+id/btn_next"
-	       style="@style/DashboardButton"
-	       android:layout_marginLeft="5dp"
-	       android:layout_marginBottom="-10dp"
-	       android:drawableTop="@drawable/next_arrow_press"/>            
 	</LinearLayout>
 </RelativeLayout>

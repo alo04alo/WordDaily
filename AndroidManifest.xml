@@ -28,16 +28,16 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name=".vocabulary.SummaryTab"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:name=".vocabulary.SummaryFragment"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name=".vocabulary.DetailTab"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name=".vocabulary.VocabularyTabBar"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name=".lesson.SubLesson"

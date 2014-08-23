@@ -60,6 +60,21 @@ public class GlobalData {
 		return db;
 	}
 	
+	public static Boolean checkEnableLesson() {
+		if (current_lesson == 1)
+			return true;
+		if (lessons.get(current_lesson - 1).is_lock == 1)
+			return true;
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param min
+	 * @param max
+	 * @param ignore
+	 * @return
+	 */
 	public static int[] getRandomThreeNumber(int min, int max, int ignore) {			
 
 		int[]  number = new int[3];
